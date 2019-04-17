@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eliteshoppy.productservice.httpresponse.HttpResponse;
@@ -19,6 +20,7 @@ import com.eliteshoppy.productservice.model.Product;
 import com.eliteshoppy.productservice.service.ProductService;
 
 @RestController
+@RequestMapping("/product")
 @Validated
 public class ProductController {
 
