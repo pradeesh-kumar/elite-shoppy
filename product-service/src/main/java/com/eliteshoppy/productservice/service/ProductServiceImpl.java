@@ -1,5 +1,7 @@
 package com.eliteshoppy.productservice.service;
 
+import java.time.LocalDateTime;
+
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,11 +24,13 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public void create(Product product) {
+		product.setCreatedDate(LocalDateTime.now());
 		productRepository.insert(product);
 	}
 
 	@Override
 	public void update(Product product) {
+		product.setUpdatedDate(LocalDateTime.now());
 		productRepository.save(product);
 	}
 

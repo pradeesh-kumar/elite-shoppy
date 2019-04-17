@@ -6,7 +6,6 @@ import lombok.Data;
 @Data @AllArgsConstructor
 public class Attribute {
 	
-	private int attributeId;
 	private String name;
 	private String value;
 

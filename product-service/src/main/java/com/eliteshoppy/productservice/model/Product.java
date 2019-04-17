@@ -18,7 +18,7 @@ public class Product {
 	private ObjectId _id;
 	
 	private String name;
-	private Category category;
+	private String category;
 	private LocalDateTime createdDate;
 	private LocalDateTime updatedDate;
 	private List<Attribute> attributes;
