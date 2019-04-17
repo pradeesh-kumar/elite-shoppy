@@ -1,37 +1,38 @@
 package com.eliteshoppy.productservice.service;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.eliteshoppy.productservice.exception.ProductNotFoundException;
 import com.eliteshoppy.productservice.model.Product;
-import com.eliteshoppy.productservice.repository.ProductDao;
+import com.eliteshoppy.productservice.repository.ProductRepository;
 
 @Service
 public class ProductServiceImpl implements ProductService {
 
 	@Autowired
-	private ProductDao productDao;
+	private ProductRepository productRepository;
 
 	@Override
-	public Product get(int productId) {
-		return productDao.get(productId).orElseThrow(
+	public Product findById(ObjectId productId) {
+		return productRepository.findById(productId).orElseThrow(
 				() -> new ProductNotFoundException(String.format("Product for the id %d is not available", productId)));
 	}
 
 	@Override
 	public void create(Product product) {
-		productDao.create(product);
+		productRepository.insert(product);
 	}
 
 	@Override
 	public void update(Product product) {
-		productDao.update(product);
+		productRepository.save(product);
 	}
 
 	@Override
-	public void delete(int productId) {
-		productDao.delete(productId);
+	public void delete(ObjectId productId) {
+		productRepository.deleteById(productId);
 	}
 
 }

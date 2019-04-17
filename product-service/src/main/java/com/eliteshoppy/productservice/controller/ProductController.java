@@ -2,6 +2,7 @@ package com.eliteshoppy.productservice.controller;
 
 import javax.validation.constraints.NotNull;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +29,8 @@ public class ProductController {
 	private ProductService productService;
 	
 	@GetMapping("/{productId}")
-	public ResponseEntity<Product> getProduct(@PathVariable("productId") int productId) {
-		return new ResponseEntity<>(productService.get(productId), HttpStatus.OK);
+	public ResponseEntity<Product> getProduct(@PathVariable("productId") ObjectId productId) {
+		return new ResponseEntity<>(productService.findById(productId), HttpStatus.OK);
 	}
 	
 	@PostMapping
@@ -45,7 +46,7 @@ public class ProductController {
 	}
 	
 	@DeleteMapping
-	public ResponseEntity<HttpResponse> deleteProduct(int productId) {
+	public ResponseEntity<HttpResponse> deleteProduct(ObjectId productId) {
 		productService.delete(productId);
 		return new ResponseEntity<>(new SuccessResponse("Product has been updated."), HttpStatus.OK);
 	}
