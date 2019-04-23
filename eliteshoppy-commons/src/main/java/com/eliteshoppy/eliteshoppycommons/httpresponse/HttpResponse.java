@@ -1,4 +1,4 @@
-package com.eliteshoppy.productservice.httpresponse;
+package com.eliteshoppy.eliteshoppycommons.httpresponse;
 
 public abstract class HttpResponse {
 

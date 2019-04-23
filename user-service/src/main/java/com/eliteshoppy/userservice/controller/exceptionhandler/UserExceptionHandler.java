@@ -1,4 +1,4 @@
-package com.eliteshoppy.productservice.controller.exceptionhandler;
+package com.eliteshoppy.userservice.controller.exceptionhandler;
 
 import java.io.IOException;
 
@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.eliteshoppy.eliteshoppycommons.httpresponse.ErrorResponse;
-import com.eliteshoppy.productservice.exception.ProductNotFoundException;
+import com.eliteshoppy.userservice.exception.UserNotFoundException;
 
 @ControllerAdvice
-public class ProductExceptionHandler {
+public class UserExceptionHandler {
 
-	@ExceptionHandler(ProductNotFoundException.class)
-	public ResponseEntity<ErrorResponse> notFound(ProductNotFoundException e) {
-		return new ResponseEntity<>(new ErrorResponse("Product Not Found"), HttpStatus.NOT_FOUND);
+	@ExceptionHandler(UserNotFoundException.class)
+	public ResponseEntity<ErrorResponse> notFound(UserNotFoundException e) {
+		return new ResponseEntity<>(new ErrorResponse("User Not Found"), HttpStatus.NOT_FOUND);
 	}
 
 	@ExceptionHandler(ConstraintViolationException.class)

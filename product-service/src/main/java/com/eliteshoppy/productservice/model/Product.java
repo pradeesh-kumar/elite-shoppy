@@ -1,5 +1,6 @@
 package com.eliteshoppy.productservice.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -19,6 +20,10 @@ public class Product {
 	
 	private String name;
 	private String category;
+	private BigDecimal price;
+	private int availableQuantity;
+	private boolean active;
+	private ObjectId ownerId;
 	private LocalDateTime createdDate;
 	private LocalDateTime updatedDate;
 	private List<Attribute> attributes;

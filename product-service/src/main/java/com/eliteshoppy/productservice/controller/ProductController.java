@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.eliteshoppy.productservice.httpresponse.HttpResponse;
-import com.eliteshoppy.productservice.httpresponse.SuccessResponse;
+import com.eliteshoppy.eliteshoppycommons.httpresponse.HttpResponse;
+import com.eliteshoppy.eliteshoppycommons.httpresponse.SuccessResponse;
 import com.eliteshoppy.productservice.model.Product;
 import com.eliteshoppy.productservice.service.ProductService;
 
