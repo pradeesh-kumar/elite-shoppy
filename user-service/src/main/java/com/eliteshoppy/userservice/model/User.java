@@ -21,4 +21,5 @@ public class User {
 	private String lastName;
 	private String contactNo;
 	private LocalDateTime dob;
+	private LocalDateTime creationDate;
 }

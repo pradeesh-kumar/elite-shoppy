@@ -30,7 +30,7 @@ public class UserController {
 	private UserService userService;
 	
 	@GetMapping("/{userId}")
-	public ResponseEntity<User> getUser(@PathVariable("userId") ObjectId userId) {
+	public ResponseEntity<User> getUser(@PathVariable ObjectId userId) {
 		return new ResponseEntity<>(userService.findById(userId), HttpStatus.OK);
 	}
 	
@@ -47,7 +47,7 @@ public class UserController {
 	}
 	
 	@DeleteMapping("/{userId}")
-	public ResponseEntity<HttpResponse> deleteUser(@NotNull ObjectId userId) {
+	public ResponseEntity<HttpResponse> deleteUser(@NotNull @PathVariable ObjectId userId) {
 		userService.delete(userId);
 		return new ResponseEntity<>(new SuccessResponse("User has been updated."), HttpStatus.OK);
 	}

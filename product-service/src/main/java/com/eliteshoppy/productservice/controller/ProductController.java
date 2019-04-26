@@ -30,7 +30,7 @@ public class ProductController {
 	private ProductService productService;
 	
 	@GetMapping("/{productId}")
-	public ResponseEntity<Product> getProduct(@PathVariable("productId") ObjectId productId) {
+	public ResponseEntity<Product> getProduct(@PathVariable ObjectId productId) {
 		return new ResponseEntity<>(productService.findById(productId), HttpStatus.OK);
 	}
 	
@@ -47,7 +47,7 @@ public class ProductController {
 	}
 	
 	@DeleteMapping("/{productId}")
-	public ResponseEntity<HttpResponse> deleteProduct(@NotNull ObjectId productId) {
+	public ResponseEntity<HttpResponse> deleteProduct(@PathVariable ObjectId productId) {
 		productService.delete(productId);
 		return new ResponseEntity<>(new SuccessResponse("Product has been updated."), HttpStatus.OK);
 	}
