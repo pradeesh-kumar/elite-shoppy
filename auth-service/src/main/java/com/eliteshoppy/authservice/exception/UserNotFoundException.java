@@ -1,4 +1,4 @@
-package com.eliteshoppy.userservice.exception;
+package com.eliteshoppy.authservice.exception;
 
 public class UserNotFoundException extends RuntimeException {
 
