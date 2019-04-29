@@ -2,7 +2,6 @@ package com.eliteshoppy.productservice.service;
 
 import java.time.LocalDateTime;
 
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,15 +16,15 @@ public class ProductServiceImpl implements ProductService {
 	private ProductRepository productRepository;
 
 	@Override
-	public Product findById(ObjectId productId) {
+	public Product findById(String productId) {
 		return productRepository.findById(productId).orElseThrow(
 				() -> new ProductNotFoundException(String.format("Product for the id %d is not available", productId)));
 	}
 
 	@Override
-	public void create(Product product) {
+	public Product create(Product product) {
 		product.setCreatedDate(LocalDateTime.now());
-		productRepository.insert(product);
+		return productRepository.insert(product);
 	}
 
 	@Override
@@ -35,7 +34,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public void delete(ObjectId productId) {
+	public void delete(String productId) {
 		productRepository.deleteById(productId);
 	}
 

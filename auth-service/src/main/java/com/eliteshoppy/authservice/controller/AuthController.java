@@ -3,7 +3,6 @@ package com.eliteshoppy.authservice.controller;
 import javax.annotation.security.PermitAll;
 import javax.validation.constraints.NotNull;
 
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,8 +30,14 @@ public class AuthController {
 	
 	@GetMapping("/{userId}")
 	@PreAuthorize("isAuthenticated()")
-	public ResponseEntity<UserAccount> getUser(@PathVariable ObjectId userId) {
+	public ResponseEntity<UserAccount> getUser(@PathVariable String userId) {
 		return new ResponseEntity<>(userAccountService.findById(userId), HttpStatus.OK);
+	}
+	
+	@GetMapping("/me")
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity<UserAccount> getAuthenticatedUser() {
+		return new ResponseEntity<>(userAccountService.getAuthenticatedUser(), HttpStatus.OK);
 	}
 	
 	@PostMapping
@@ -50,7 +55,7 @@ public class AuthController {
 	
 	@GetMapping("/status/{userId}/{status}")
 	@PreAuthorize("isAuthenticated()")
-	public ResponseEntity<SuccessResponse> getUser(@PathVariable ObjectId userId, @PathVariable boolean status) {
+	public ResponseEntity<SuccessResponse> getUser(@PathVariable String userId, @PathVariable boolean status) {
 		userAccountService.updateStatus(userId, status);
 		return new ResponseEntity<>(new SuccessResponse("User has been updated"), HttpStatus.OK);
 	}
