@@ -60,7 +60,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 	}
 
 	private void checkIfExist(String username) {
-		userAccountRepo.findByUsername(username).ifPresent(uaList -> { 
+		userAccountRepo.findByUsername(username).ifPresent(uaList -> {
 			if (!uaList.isEmpty()) {
 				throw new UserAccountAlreadyExistsException("User account already exists with this username!");
 			}

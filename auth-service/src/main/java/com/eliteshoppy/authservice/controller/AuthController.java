@@ -1,5 +1,7 @@
 package com.eliteshoppy.authservice.controller;
 
+import java.util.Collection;
+
 import javax.annotation.security.PermitAll;
 import javax.validation.constraints.NotNull;
 
@@ -7,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -53,10 +58,17 @@ public class AuthController {
 		return new ResponseEntity<>(new SuccessResponse("User has been updated"), HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/status/{userId}/{status}")
+	@PutMapping("/status/{userId}/{status}")
 	@PreAuthorize("isAuthenticated()")
-	public ResponseEntity<SuccessResponse> getUser(@PathVariable String userId, @PathVariable boolean status) {
+	public ResponseEntity<SuccessResponse> updateStatus(@PathVariable String userId, @PathVariable boolean status) {
 		userAccountService.updateStatus(userId, status);
 		return new ResponseEntity<>(new SuccessResponse("User has been updated"), HttpStatus.OK);
+	}
+	
+	@GetMapping("/role")
+	@PreAuthorize("isAuthenticated()")
+	public Collection<GrantedAuthority> getauth() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		return ((org.springframework.security.core.userdetails.User) auth.getPrincipal()).getAuthorities();
 	}
 }
