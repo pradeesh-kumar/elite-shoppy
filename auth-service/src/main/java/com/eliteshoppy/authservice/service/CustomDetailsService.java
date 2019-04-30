@@ -1,13 +1,11 @@
 package com.eliteshoppy.authservice.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -22,7 +20,7 @@ public class CustomDetailsService implements UserDetailsService {
 	private UserAccountRepository userAccountRepo;
 
 	@Override
-	public User loadUserByUsername(final String username) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
 
 		try {
 			Optional<List<UserAccount>> userAccounts = userAccountRepo.findByUsername(username);
@@ -30,18 +28,16 @@ public class CustomDetailsService implements UserDetailsService {
 					() -> new UsernameNotFoundException("User " + username + " was not found in the database"));
 			userAccounts.get().stream().findAny().orElseThrow(
 					() -> new UsernameNotFoundException("User " + username + " was not found in the database"));
-			User ud = populateAuthUser(userAccounts.get().stream().findAny().get());
-			return ud;
+			return populateAuthUser(userAccounts.get().stream().findAny().get());
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new UsernameNotFoundException("User " + username + " was not found in the database");
 		}
 	}
 
-	private User populateAuthUser(UserAccount ua) {
-		List<GrantedAuthority> ga = new ArrayList<>();
-		ga.add(new SimpleGrantedAuthority(ua.getUserType().name()));
-		User user = new User(ua.getUsername(), ua.getPassword(), ga);
-		return user;
+	private UserDetails populateAuthUser(UserAccount ua) {
+		return User.builder().username(ua.getUsername()).password(ua.getPassword())
+			.disabled(!ua.isStatus()).authorities("ROLE_" + ua.getUserType().name()).build();
+		
 	}
 }

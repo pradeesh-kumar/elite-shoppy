@@ -1,7 +1,5 @@
 package com.eliteshoppy.productservice.controller;
 
-import java.util.Collection;
-
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.validation.constraints.NotNull;
@@ -9,10 +7,6 @@ import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.eliteshoppy.eliteshoppycommons.httpresponse.HttpResponse;
 import com.eliteshoppy.eliteshoppycommons.httpresponse.SuccessResponse;
+import com.eliteshoppy.eliteshoppycommons.statics.UserRole;
 import com.eliteshoppy.productservice.model.Product;
 import com.eliteshoppy.productservice.service.ProductService;
 
@@ -43,29 +38,23 @@ public class ProductController {
 	}
 	
 	@PostMapping
-	@RolesAllowed({"ProductOwner", "Admin"})
+	@RolesAllowed({UserRole.ROLE_ADMIN, UserRole.ROLE_PRODUCTOWNER})
 	public ResponseEntity<Product> createProduct(@NotNull @RequestBody Product product) {
 		return new ResponseEntity<>(productService.create(product), HttpStatus.CREATED);
 	}
 	
 	@PutMapping
-	@RolesAllowed({"ProductOwner", "Admin"})
+	@RolesAllowed({UserRole.ROLE_ADMIN, UserRole.ROLE_PRODUCTOWNER})
 	public ResponseEntity<HttpResponse> updateProduct(@NotNull @RequestBody Product product) {
 		productService.update(product);
 		return new ResponseEntity<>(new SuccessResponse("Product has been updated."), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{productId}")
-	@RolesAllowed({"ProductOwner", "Admin"})
+	@RolesAllowed({UserRole.ROLE_ADMIN, UserRole.ROLE_PRODUCTOWNER})
 	public ResponseEntity<HttpResponse> deleteProduct(@PathVariable String productId) {
 		productService.delete(productId);
 		return new ResponseEntity<>(new SuccessResponse("Product has been updated."), HttpStatus.OK);
 	}
 	
-	@GetMapping("/role")
-	@PreAuthorize("isAuthenticated()")
-	public Object getauth() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		return auth.getPrincipal();
-	}
 }

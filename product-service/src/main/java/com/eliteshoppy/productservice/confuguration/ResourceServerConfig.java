@@ -12,7 +12,7 @@ import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHand
 @Configuration
 @EnableResourceServer
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true, jsr250Enabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true, jsr250Enabled = true, securedEnabled = true)
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
 	private static final String RESOURCE_ID = "resource_id";
@@ -27,5 +27,5 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		http.csrf().disable().authorizeRequests().antMatchers("/**").permitAll().and().exceptionHandling()
 				.accessDeniedHandler(new OAuth2AccessDeniedHandler());
 	}
-
+	
 }

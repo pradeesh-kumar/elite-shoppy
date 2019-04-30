@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.eliteshoppy.productservice.confuguration.OAuthAuthoritiesExtractor;
 import com.eliteshoppy.productservice.exception.ProductNotFoundException;
 import com.eliteshoppy.productservice.model.Product;
 import com.eliteshoppy.productservice.repository.ProductRepository;
@@ -14,6 +15,8 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	private ProductRepository productRepository;
+	@Autowired
+	private OAuthAuthoritiesExtractor authoritiesExtractor;
 
 	@Override
 	public Product findById(String productId) {
@@ -24,6 +27,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Product create(Product product) {
 		product.setCreatedDate(LocalDateTime.now());
+		product.setOwnerId(authoritiesExtractor.getUserId());
 		return productRepository.insert(product);
 	}
 
