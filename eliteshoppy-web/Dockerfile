@@ -1,7 +1,12 @@
 #
 # Build stage
 #
+# Build eliteshoppy-common
 FROM maven:3.6-jdk-8 AS build
+COPY eliteshoppy-commons /tmp
+RUN mvn -f /tmp/eliteshoppy-commons/pom.xml clean install
+
+# Build main project
 COPY eliteshoppy-web/src /home/app/src
 COPY eliteshoppy-web/pom.xml /home/app/pom.xml
 RUN mvn -f /home/app/pom.xml clean package
