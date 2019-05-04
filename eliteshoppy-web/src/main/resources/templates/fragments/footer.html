@@ -4,7 +4,7 @@
 			<h2>
 				<a href="index.html"><span>E</span>lite Shoppy </a>
 			</h2>
-			<p>E-commerce is revolutionizing the way we all shop in India. Why do you want to hop from one store to another in search of the latest phone when you can find it on the Internet in a single click</p>
+			<p align="justify">E-commerce is revolutionizing the way we all shop in India. Why do you want to hop from one store to another in search of the latest phone when you can find it on the Internet in a single click</p>
 			<ul class="social-nav model-3d-0 footer-social w3_agile_social two">
 				<li>
 					<a href="#" class="facebook">
@@ -97,7 +97,7 @@
 							</div>
 							<div class="w3-address-right">
 								<h6>Location</h6>
-								<p>Broome St, NY 10002,California, USA.</p>
+								<p>123 Main St, CA 10002, California, USA.</p>
 							</div>
 							<div class="clearfix"></div>
 						</div>
@@ -108,7 +108,7 @@
 		</div>
 		<div class="clearfix"></div>
 		<p class="copy-right">
-			&copy 2019 Elite shoppy. All rights reserved | Design by <a href="https://github.com/Pradeeshbm">Pradeesh Bm</a>
+			&copy <span id="cpyear">2019</span> Elite shoppy. All rights reserved | Design by <a href="https://github.com/Pradeeshbm">Pradeesh Bm</a>
 		</p>
 	</div>
 </div>
@@ -224,6 +224,9 @@
 			width : 'auto',
 			fit : true
 		});
+		
+		// Display current year in copyright section
+		$("#cpyear").text(new Date().getFullYear());
 	});
 </script>
 <!-- //script for responsive tabs -->
@@ -258,4 +261,17 @@
 		});
 	});
 </script>
+
+<script th:inline="javascript">
+    var API_URL = /*[[${apiUrl}]]*/ 'http://localhost:8080';
+    var CLIENT_ID = /*[[${apiClientId}]]*/ '';
+    var CLIENT_SECRET = /*[[${apiClientSecret}]]*/ '';
+    var GRANT_TYPE = /*[[${apiGrantType}]]*/ '';
+</script>
+
 <script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+
+<!-- Application Js -->
+<script type="text/javascript" th:src="@{/js/app/core/api-global.js}"></script>
+<script type="text/javascript" th:src="@{/js/app/core/auth.js}"></script>
+<script type="text/javascript" th:src="@{/js/app/core/es-core.js}"></script>

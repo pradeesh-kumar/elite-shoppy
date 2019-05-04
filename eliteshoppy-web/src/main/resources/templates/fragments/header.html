@@ -1,15 +1,17 @@
 <header id="home">
 	<div class="container">
 		<ul>
-			<li><a href="#" data-toggle="modal" data-target="#myModal"> <i class="fa fa-unlock-alt" aria-hidden="true"></i>
+			<li>
+				<a href="#" data-toggle="modal" data-target="#myModal"> <i class="fa fa-unlock-alt" aria-hidden="true"></i>
 					Sign In
-			</a></li>
-			<li><a href="#" data-toggle="modal" data-target="#myModal2"> <i class="fa fa-pencil-square-o"
-					aria-hidden="true"></i> Sign Up
-			</a></li>
-			<li><i class="fa fa-phone" aria-hidden="true"></i> Call: 01234567898</li>
-			<li><i class="fa fa-envelope-o" aria-hidden="true"></i> <a href="mailto:info@example.com">info@eliteshoppy.com</a>
+				</a>
 			</li>
+			<li>
+				<a href="#" data-toggle="modal" data-target="#myModal2"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sign Up
+				</a>
+			</li>
+			<li><i class="fa fa-phone" aria-hidden="true"></i> Call: 01234567898</li>
+			<li><i class="fa fa-envelope-o" aria-hidden="true"></i> <a href="mailto:info@example.com">info@eliteshoppy.com</a></li>
 		</ul>
 	</div>
 </header>
@@ -99,8 +101,6 @@
 							<li class="active menu__item menu__item--current"><a
 								class="menu__link" href="/index.html">Home <span
 									class="sr-only">(current)</span></a></li>
-							<li class=" menu__item"><a class="menu__link"
-								href="/about.html">About</a></li>
 							<li class="dropdown menu__item"><a href="#"
 								class="dropdown-toggle menu__link" data-toggle="dropdown"
 								role="button" aria-haspopup="true" aria-expanded="false">Men's
@@ -179,6 +179,8 @@
 									<li><a href="/typography.html">Typography</a></li>
 								</ul></li>
 							<li class=" menu__item"><a class="menu__link"
+								th:href="@{/about.html}">About</a></li>
+							<li class=" menu__item"><a class="menu__link"
 								th:href="@{/contact.html}">Contact</a></li>
 						</ul>
 					</div>
@@ -203,7 +205,6 @@
 <!-- Sign in Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
 	<div class="modal-dialog">
-		<!-- Modal content-->
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -213,16 +214,16 @@
 					<h3 class="agileinfo_sign">
 						Sign In <span>Now</span>
 					</h3>
-					<form action="#" method="post">
+					<form name="signInForm" id="signInForm">
 						<div class="styled-input agile-styled-input-top">
-							<input type="text" name="Name" required=""> <label>Name</label>
+							<input type="text" name="email" required="required"> <label>Email</label>
 							<span></span>
 						</div>
 						<div class="styled-input">
-							<input type="email" name="Email" required=""> <label>Email</label>
+							<input type="password" name="password" required="required"> <label>Password</label>
 							<span></span>
 						</div>
-						<input type="submit" value="Sign In">
+						<input type="button" value="Sign In" id="signinbtn" onclick="signin()">
 					</form>
 					<ul
 						class="social-nav model-3d-0 footer-social w3_agile_social top_agile_third">
@@ -272,7 +273,6 @@
 				<div class="clearfix"></div>
 			</div>
 		</div>
-		<!-- //Modal content-->
 	</div>
 </div>
 
