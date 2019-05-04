@@ -17,9 +17,9 @@ public class UserAccount {
 	
 	private String username;
 	private String password;
+	private String fullName;
 	private UserType userType;
 	private LocalDateTime creationDate;
-	private User user;
 	private boolean status;
 	
 }

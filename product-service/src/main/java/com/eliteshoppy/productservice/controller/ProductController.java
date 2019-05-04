@@ -38,20 +38,20 @@ public class ProductController {
 	}
 	
 	@PostMapping
-	@RolesAllowed({UserRole.ROLE_ADMIN, UserRole.ROLE_PRODUCTOWNER})
+	@RolesAllowed({UserRole.ROLE_ADMIN, UserRole.ROLE_SELLER})
 	public ResponseEntity<Product> createProduct(@NotNull @RequestBody Product product) {
 		return new ResponseEntity<>(productService.create(product), HttpStatus.CREATED);
 	}
 	
 	@PutMapping
-	@RolesAllowed({UserRole.ROLE_ADMIN, UserRole.ROLE_PRODUCTOWNER})
+	@RolesAllowed({UserRole.ROLE_ADMIN, UserRole.ROLE_SELLER})
 	public ResponseEntity<HttpResponse> updateProduct(@NotNull @RequestBody Product product) {
 		productService.update(product);
 		return new ResponseEntity<>(new SuccessResponse("Product has been updated."), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{productId}")
-	@RolesAllowed({UserRole.ROLE_ADMIN, UserRole.ROLE_PRODUCTOWNER})
+	@RolesAllowed({UserRole.ROLE_ADMIN, UserRole.ROLE_SELLER})
 	public ResponseEntity<HttpResponse> deleteProduct(@PathVariable String productId) {
 		productService.delete(productId);
 		return new ResponseEntity<>(new SuccessResponse("Product has been updated."), HttpStatus.OK);

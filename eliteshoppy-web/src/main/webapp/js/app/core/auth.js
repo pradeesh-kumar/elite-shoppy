@@ -1,5 +1,59 @@
 var principalUser = null;
 
+function signup() {
+	document.getElementById("signupUsername").setCustomValidity("");
+	document.getElementById("signuppassword").setCustomValidity("");
+	
+	var fullName = $("form[name='signUpForm'] input[name='fullName']").val();
+	var email = $("form[name='signUpForm'] input[name='email']").val();
+	var password = $("form[name='signUpForm'] input[name='password']").val();
+	var password2 = $("form[name='signUpForm'] input[name='password1']").val();
+	
+	console.log(password);
+	console.log(password2);
+	if ($('#signUpForm')[0].checkValidity()) {
+		if (password != password2) {
+			document.getElementById("signuppassword").setCustomValidity("Passwords must match!");
+			$('#signUpForm')[0].reportValidity();
+		} else {
+			$('#signupbtn').val("Registering...");
+			$('#signupbtn').attr("disabled", true);
+			
+			requestPayload = {
+				"username": email,
+				"password": password,
+				"userType": 2,
+				"status": true,
+				"fullName": fullName
+			}
+			
+			$.ajax({
+				'url' : USER_REGISTER_URL,
+				'type' : 'POST',
+				'contentType' : 'application/json',
+				'data' : JSON.stringify(requestPayload),
+				'dataType' : 'json',
+				'success' : function(result) {
+					requestAccessToken(email, password);
+				},
+				'error' : function(response) {
+					if (response.status == 409) {
+						document.getElementById("signupUsername").setCustomValidity("Email id already exists!");
+						$('#signUpForm')[0].reportValidity();
+					} else {
+						showErrorModal(ERROR_MSG_SIGNUP);
+					}
+					console.log(response);
+					$('#signupbtn').val("SIGN UP");
+					$('#signupbtn').attr("disabled", false);
+				}
+			});
+		}
+	} else {
+		$('#signUpForm')[0].reportValidity();
+	}
+}
+
 function signin() {
 	if ($('#signInForm')[0].checkValidity()) {
 		$('#signinbtn').val("Signing in...");
@@ -69,16 +123,22 @@ function fetchPricipalUser() {
 		'success' : function(result) {
 			principalUser = result;
 			console.info("Principal User:" + principalUser);
-			localStorage.setItem("principalUser", principalUser);
+			localStorage.setItem("principalUser", JSON.stringify(principalUser));
 			$('#signInModal').modal('hide');
+			$('#signupModal').modal('hide');
+			refreshUi();
 		},
 		'error' : function(XMLHttpRequest, textStatus, errorThrown) {
 			console.error("Couldn't fetch principal user!");
-			$('#signinbtn').attr("disabled", false);
-			$('#signinbtn').val("SIGN IN");
 			console.error(errorThrown);
 			console.error(textStatus);
 			showErrorModal(ERROR_MSG_SIGNIN);
+		},
+		'always': function() {
+			$('#signinbtn').attr("disabled", false);
+			$('#signinbtn').val("SIGN IN");
+			$('#signupbtn').val("SIGN UP");
+			$('#signupbtn').attr("disabled", false);
 		}
 	});
 }
@@ -87,5 +147,11 @@ function destroyLocalTokens() {
 	localStorage.removeItem("access_token");
 	localStorage.removeItem("refresh_token");
 	localStorage.removeItem("expires_in");
+	localStorage.removeItem("principalUser");
 }
 
+function signout() {
+	destroyLocalTokens();
+	refreshUi();
+	return false;
+}

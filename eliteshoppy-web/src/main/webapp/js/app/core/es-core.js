@@ -1,14 +1,19 @@
+function title(str) {
+	return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
 function refreshUi() {
 	if (localStorage.principalUser == undefined) {
 		$(".anonymous").show();
 		$(".authorized").hide();
 	} else {
-		var authUser = localStorage.principalUser;
+		var authUser = JSON.parse(localStorage.principalUser);
 		
 		$(".anonymous").hide();
-		$(".authorized").show();
-		
-		$("#authUserName").text(authUser.user.firstName + " " + authUser.user.lastName);
+		$(".authorized").hide();
+		$(".authorized.all").show();
+		$(".authorized." + authUser.userType.toLowerCase()).show();
+		$("#authUserName").text(title(authUser.fullName));
 	}
 }
 

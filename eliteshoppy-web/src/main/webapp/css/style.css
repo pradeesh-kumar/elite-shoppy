@@ -6069,3 +6069,11 @@ p.w3ls_para {
 		left: 68% !important;
 	}
 }
+
+.anonymous {
+	display: none;
+}
+
+.authorized {
+	display: none;
+}

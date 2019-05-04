@@ -5,16 +5,16 @@
 				<a href="#" data-toggle="modal" data-target="#signInModal" class="anonymous"> <i class="fa fa-unlock-alt" aria-hidden="true"></i>
 					Sign In
 				</a>
-				<a th:href="@{/user-account.html}" class="authorized"> <i class="fa fa-user" aria-hidden="true"></i>
+				<a th:href="@{/user-account.html}" class="authorized all"> <i class="fa fa-user" aria-hidden="true"></i>
 					<span id="authUserName"></span>
 				</a>
 			</li>
 			<li>
-				<a href="#" data-toggle="modal" data-target="#myModal2" class="anonymous"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> 
+				<a href="#" data-toggle="modal" data-target="#signupModal" class="anonymous"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> 
 					Sign Up
 				</a>
-				<a href="/signout" class="authorized"> <i class="glyphicon glyphicon-log-out" aria-hidden="true"></i> 
-					<span class="authorized">Sign Out</span>
+				<a href="/signout" class="authorized all" onclick="return signout()"> <i class="glyphicon glyphicon-log-out" aria-hidden="true"></i> 
+					Sign Out
 				</a>
 			</li>
 			<li><i class="fa fa-phone" aria-hidden="true"></i> Call: 01234567898</li>
@@ -85,34 +85,30 @@
 	</div>
 </div>
 
+<!-- Menu Bar -->
 <div class="ban-top">
 	<div class="container">
 		<div class="top_nav_left">
 			<nav class="navbar navbar-default">
 				<div class="container-fluid">
-					<!-- Brand and toggle get grouped for better mobile display -->
 					<div class="navbar-header">
-						<button type="button" class="navbar-toggle collapsed"
-							data-toggle="collapse"
-							data-target="#bs-example-navbar-collapse-1"
-							aria-expanded="false">
-							<span class="sr-only">Toggle navigation</span> <span
-								class="icon-bar"></span> <span class="icon-bar"></span> <span
-								class="icon-bar"></span>
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+							<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> 
+							<span class="icon-bar"></span>
 						</button>
 					</div>
-					<!-- Collect the nav links, forms, and other content for toggling -->
-					<div class="collapse navbar-collapse menu--shylock"
-						id="bs-example-navbar-collapse-1">
+					
+					<div class="collapse navbar-collapse menu--shylock" id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav menu__list">
-							<li class="active menu__item menu__item--current"><a
-								class="menu__link" href="/index.html">Home <span
-									class="sr-only">(current)</span></a></li>
-							<li class="dropdown menu__item"><a href="#"
-								class="dropdown-toggle menu__link" data-toggle="dropdown"
-								role="button" aria-haspopup="true" aria-expanded="false">Men's
-									wear <span class="caret"></span>
-							</a>
+							<li class="active menu__item menu__item--current">
+								<a class="menu__link" th:href="@{/index.html}">
+									Home <span class="sr-only">(current)</span>
+								</a>
+							</li>
+							<li class="dropdown menu__item">
+								<a href="#" class="dropdown-toggle menu__link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+									Men's wear <span class="caret"></span>
+								</a>
 								<ul class="dropdown-menu multi-column columns-3">
 									<div class="agile_inner_drop_nav_info">
 										<div class="col-sm-6 multi-gd-img1 multi-gd-text ">
@@ -145,8 +141,7 @@
 								</ul></li>
 							<li class="dropdown menu__item"><a href="#"
 								class="dropdown-toggle menu__link" data-toggle="dropdown"
-								role="button" aria-haspopup="true" aria-expanded="false">Women's
-									wear <span class="caret"></span>
+								role="button" aria-haspopup="true" aria-expanded="false">Women's wear <span class="caret"></span>
 							</a>
 								<ul class="dropdown-menu multi-column columns-3">
 									<div class="agile_inner_drop_nav_info">
@@ -178,17 +173,13 @@
 										<div class="clearfix"></div>
 									</div>
 								</ul></li>
-							<li class="menu__item dropdown"><a href="#" class="menu__link dropdown-toggle" data-toggle="dropdown">Short
-									Codes <b class="caret"></b>
-							</a>
-								<ul class="dropdown-menu agile_short_dropdown">
-									<li><a href="icons.html">Web Icons</a></li>
-									<li><a href="/typography.html">Typography</a></li>
-								</ul></li>
-							<li class=" menu__item"><a class="menu__link"
-								th:href="@{/about.html}">About</a></li>
-							<li class=" menu__item"><a class="menu__link"
-								th:href="@{/contact.html}">Contact</a></li>
+							<li class="menu__item dropdown authorized seller">
+								<a th:href="@{/products.html}" class="menu__link dropdown-toggle" data-toggle="dropdown">
+									Products
+								</a>
+							</li>
+							<li class=" menu__item"><a class="menu__link" th:href="@{/about.html}">About</a></li>
+							<li class=" menu__item"><a class="menu__link" th:href="@{/contact.html}">Contact</a></li>
 						</ul>
 					</div>
 				</div>
@@ -269,7 +260,7 @@
 					</ul>
 					<div class="clearfix"></div>
 					<p>
-						<a href="#" data-toggle="modal" data-target="#myModal2">
+						<a href="#" data-toggle="modal" data-target="#signupModal">
 							Don't have an account?</a>
 					</p>
 
@@ -284,7 +275,7 @@
 </div>
 
 <!-- Sign up modal-->
-<div class="modal fade" id="myModal2" tabindex="-1" role="dialog">
+<div class="modal fade" id="signupModal" tabindex="-1" role="dialog">
 	<div class="modal-dialog">
 		<!-- Modal content-->
 		<div class="modal-content">
@@ -296,24 +287,24 @@
 					<h3 class="agileinfo_sign">
 						Sign Up <span>Now</span>
 					</h3>
-					<form action="#" method="post">
+					<form action="#" method="post" name="signUpForm" id="signUpForm">
 						<div class="styled-input agile-styled-input-top">
-							<input type="text" name="Name" required=""> <label>Name</label>
+							<input type="text" name="fullName" required="required" pattern="\s*(\S\s*){6,}" title="Name should have at least 6 characters"> <label>Name</label>
 							<span></span>
 						</div>
 						<div class="styled-input">
-							<input type="email" name="Email" required=""> <label>Email</label>
+							<input type="email" name="email" required="required" id="signupUsername"> <label>Email</label>
 							<span></span>
 						</div>
 						<div class="styled-input">
-							<input type="password" name="password" required=""> <label>Password</label>
+							<input type="password" name="password" id="signuppassword" required="required" pattern=".{6,}" title="Password should have at least 6 characters and both passwords must match."> <label>Password</label>
 							<span></span>
 						</div>
 						<div class="styled-input">
-							<input type="password" name="Confirm Password" required="">
+							<input type="password" name="password1" required>
 							<label>Confirm Password</label> <span></span>
 						</div>
-						<input type="submit" value="Sign Up">
+						<input type="button" value="Sign Up" id="signupbtn" onclick="signup()">
 					</form>
 					<ul
 						class="social-nav model-3d-0 footer-social w3_agile_social top_agile_third">
