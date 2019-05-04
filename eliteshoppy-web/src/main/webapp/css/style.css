@@ -6070,10 +6070,10 @@ p.w3ls_para {
 	}
 }
 
-.anonymous {
+.anonymous, .authorized {
 	display: none;
 }
 
-.authorized {
+.error, .success{
 	display: none;
 }

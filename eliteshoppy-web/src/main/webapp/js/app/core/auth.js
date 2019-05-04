@@ -9,8 +9,6 @@ function signup() {
 	var password = $("form[name='signUpForm'] input[name='password']").val();
 	var password2 = $("form[name='signUpForm'] input[name='password1']").val();
 	
-	console.log(password);
-	console.log(password2);
 	if ($('#signUpForm')[0].checkValidity()) {
 		if (password != password2) {
 			document.getElementById("signuppassword").setCustomValidity("Passwords must match!");
@@ -35,6 +33,7 @@ function signup() {
 				'dataType' : 'json',
 				'success' : function(result) {
 					requestAccessToken(email, password);
+					$('#signUpForm')[0].reset();
 				},
 				'error' : function(response) {
 					if (response.status == 409) {
@@ -62,6 +61,7 @@ function signin() {
 		var email = $("form[name='signInForm'] input[name='email']").val();
 		var password = $("form[name='signInForm'] input[name='password']").val();
 		requestAccessToken(email, password);
+		$('#signInForm')[0].reset();
 	} else {
 		$('#signInForm')[0].reportValidity();
 	}
@@ -126,6 +126,10 @@ function fetchPricipalUser() {
 			localStorage.setItem("principalUser", JSON.stringify(principalUser));
 			$('#signInModal').modal('hide');
 			$('#signupModal').modal('hide');
+			$('#signinbtn').attr("disabled", false);
+			$('#signinbtn').val("SIGN IN");
+			$('#signupbtn').val("SIGN UP");
+			$('#signupbtn').attr("disabled", false);
 			refreshUi();
 		},
 		'error' : function(XMLHttpRequest, textStatus, errorThrown) {
@@ -133,8 +137,6 @@ function fetchPricipalUser() {
 			console.error(errorThrown);
 			console.error(textStatus);
 			showErrorModal(ERROR_MSG_SIGNIN);
-		},
-		'always': function() {
 			$('#signinbtn').attr("disabled", false);
 			$('#signinbtn').val("SIGN IN");
 			$('#signupbtn').val("SIGN UP");

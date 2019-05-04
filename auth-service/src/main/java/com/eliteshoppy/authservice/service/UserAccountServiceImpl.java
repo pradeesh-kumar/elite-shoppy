@@ -47,6 +47,10 @@ public class UserAccountServiceImpl implements UserAccountService {
 
 	@Override
 	public void update(UserAccount ua) {
+		UserAccount uaPrev = findById(ua.getId());
+		if (!uaPrev.getPassword().equalsIgnoreCase(ua.getPassword())) {
+			ua.setPassword(passwordEncoder.encode(ua.getPassword()));
+		}
 		userAccountRepo.save(ua);
 	}
 
