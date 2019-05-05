@@ -6,7 +6,7 @@
 					Sign In
 				</a>
 				<a th:href="@{/user-account.html}" class="authorized all"> <i class="fa fa-user" aria-hidden="true"></i>
-					<span id="authUserName"></span>
+					<span id="authUserName"></span><span class="authorized admin seller" id="userType"></span>
 				</a>
 			</li>
 			<li>
@@ -213,6 +213,8 @@
 						Sign In <span>Now</span>
 					</h3>
 					<form name="signInForm" id="signInForm">
+						<span class="alert alert-danger alert-xs error error-xs" id="loginError">Error occured</span><br>
+						<div class="clearfix"></div>
 						<div class="styled-input agile-styled-input-top">
 							<input type="text" name="email" required="required"> <label>Email</label>
 							<span></span>

@@ -6,3 +6,4 @@ var USER_UPDATE_URL = API_URL + "/auth-service/useraccount";
 
 var ERROR_MSG_SIGNIN = "Something went wrong while signing in! Please try again later.";
 var ERROR_MSG_SIGNUP = "Something went wrong while signing up! Please try again later.";
+var ERROR_MSG_INVALID_CRED = "Invalid email id or password!";

@@ -14,8 +14,7 @@ function signup() {
 			document.getElementById("signuppassword").setCustomValidity("Passwords must match!");
 			$('#signUpForm')[0].reportValidity();
 		} else {
-			$('#signupbtn').val("Registering...");
-			$('#signupbtn').attr("disabled", true);
+			invertButton("signupbtn", "Registering...", true);
 			
 			requestPayload = {
 				"username": email,
@@ -32,8 +31,23 @@ function signup() {
 				'data' : JSON.stringify(requestPayload),
 				'dataType' : 'json',
 				'success' : function(result) {
-					requestAccessToken(email, password);
-					$('#signUpForm')[0].reset();
+					requestAccessToken(email, password, {
+						'success': function(response) {
+							storeToken(response);
+							fetchPricipalUser({
+								'success': function() {
+									$('#signUpForm')[0].reset();
+									$('#signupModal').modal('hide');
+								},
+								'error': function() {
+									showErrorModal(ERROR_MSG_SIGNUP);
+								},
+								'complete': function() {
+									invertButton("signupbtn", "SIGN UP", false);
+								}
+							});
+						}
+					});
 				},
 				'error' : function(response) {
 					if (response.status == 409) {
@@ -43,8 +57,7 @@ function signup() {
 						showErrorModal(ERROR_MSG_SIGNUP);
 					}
 					console.log(response);
-					$('#signupbtn').val("SIGN UP");
-					$('#signupbtn').attr("disabled", false);
+					invertButton("signupbtn", "SIGN UP", false);
 				}
 			});
 		}
@@ -55,19 +68,69 @@ function signup() {
 
 function signin() {
 	if ($('#signInForm')[0].checkValidity()) {
-		$('#signinbtn').val("Signing in...");
-		$('#signinbtn').attr("disabled", true);
-
+		invertButton("signinbtn", "Signing in...", true);
 		var email = $("form[name='signInForm'] input[name='email']").val();
 		var password = $("form[name='signInForm'] input[name='password']").val();
-		requestAccessToken(email, password);
-		$('#signInForm')[0].reset();
+		requestAccessToken(email, password, {
+			'success': function(response) {
+				storeToken(response);
+				fetchPricipalUser({
+					'success': function() {
+						$('#signInModal').modal('hide');
+					},
+					'error': function() {
+						showErrorModal(ERROR_MSG_SIGNIN);
+					},
+					'complete': function() {
+						$("#loginError").hide();
+						invertButton("signinbtn", "SIGN IN", false);
+					}
+				});
+			},
+			'invalidCredential': function(response) {
+				$("#loginError").css('display', 'block').text(ERROR_MSG_INVALID_CRED);
+			},
+			'error': function(response) {
+				showErrorModal(ERROR_MSG_SIGNIN);
+			},
+			'complete': function() {
+				invertButton("signinbtn", "SIGN IN", false);
+			}
+		});
 	} else {
 		$('#signInForm')[0].reportValidity();
 	}
 }
 
-function requestAccessToken(username, password) {
+function signinWithRefreshToken(refreshToken, callbacks) {
+	var authToken = btoa(CLIENT_ID + ":" + CLIENT_SECRET);
+	var requestPayload = {
+		'refresh_token' : refreshToken,
+		'grant_type' : "refresh_token"
+	}
+	$.ajax({
+		'url' : REQUEST_TOKEN_URL,
+		'type' : 'POST',
+		'content-Type' : 'x-www-form-urlencoded',
+		'dataType' : 'json',
+		'headers' : {
+			'Authorization' : 'basic ' + authToken
+		},
+		'data' : requestPayload,
+		'success' : function(response) {
+			callbacks.success(response);
+		},
+		'error' : function(response) {
+			if (response.responseText.indexOf("Invalid refresh token") != -1) {
+				callbacks.invalidToken(response);
+			} else {
+				callbacks.error(response);
+			}
+		}
+	});
+}
+
+function requestAccessToken(username, password, callbacks) {
 	var authToken = btoa(CLIENT_ID + ":" + CLIENT_SECRET);
 
 	var requestPayload = {
@@ -85,12 +148,35 @@ function requestAccessToken(username, password) {
 			'Authorization' : 'basic ' + authToken
 		},
 		'data' : requestPayload,
-		'success' : authSuccess,
-		'error' : authError
+		'success' : function(response) {
+			console.log(response);
+			if (callbacks != null && callbacks.success != undefined) {
+				callbacks.success(response);
+			}
+		},
+		'error' : function(response) {
+			console.error(response);
+			if (callbacks != null && callbacks != undefined) {
+				if (response.responseText.indexOf("Bad credentials" != -1)) {
+					if (callbacks.invalidCredential != undefined) {
+						callbacks.invalidCredential(response);
+					}
+				} else {
+					if (callbacks.error != undefined) {
+						callbacks.error(response);
+					}
+				}
+			}
+		}, 
+		'complete': function() {
+			if (callbacks != undefined && callbacks != null && callbacks.complete != undefined) {
+				callbacks.complete();
+			}
+		}
 	});
 }
 
-function authSuccess(result) {
+function storeToken(result) {
 	accessToken = result.access_token;
 	refreshToken = result.refresh_token;
 	expiresIn = result.expires_in;
@@ -101,18 +187,16 @@ function authSuccess(result) {
 	localStorage.setItem("access_token", accessToken);
 	localStorage.setItem("refresh_token", refreshToken);
 	localStorage.setItem("expires_in", expiresIn);
-	fetchPricipalUser();
 }
 
 function authError(XMLHttpRequest, textStatus, errorThrown) {
-	$('#signinbtn').attr("disabled", false);
-	$('#signinbtn').val("SIGN IN");
+	invertButton("signinbtn", "SIGN IN", false);
 	console.log("Error on auth:" + errorThrown);
 	console.log(XMLHttpRequest.status + ' ' + XMLHttpRequest.statusText);
 	showErrorModal(ERROR_MSG_SIGNIN);
 }
 
-function fetchPricipalUser() {
+function fetchPricipalUser(callbacks) {
 	accessToken = localStorage.getItem("access_token");
 	$.ajax({
 		'url' : FETCH_PRINCIPAL_USER_URL,
@@ -124,23 +208,17 @@ function fetchPricipalUser() {
 			principalUser = result;
 			console.info("Principal User:" + principalUser);
 			localStorage.setItem("principalUser", JSON.stringify(principalUser));
-			$('#signInModal').modal('hide');
-			$('#signupModal').modal('hide');
-			$('#signinbtn').attr("disabled", false);
-			$('#signinbtn').val("SIGN IN");
-			$('#signupbtn').val("SIGN UP");
-			$('#signupbtn').attr("disabled", false);
 			refreshUi();
+			if (callbacks != undefined && callbacks.success != undefined) {
+				callbacks.success(result);
+			}
 		},
-		'error' : function(XMLHttpRequest, textStatus, errorThrown) {
+		'error' : function(response) {
 			console.error("Couldn't fetch principal user!");
-			console.error(errorThrown);
-			console.error(textStatus);
-			showErrorModal(ERROR_MSG_SIGNIN);
-			$('#signinbtn').attr("disabled", false);
-			$('#signinbtn').val("SIGN IN");
-			$('#signupbtn').val("SIGN UP");
-			$('#signupbtn').attr("disabled", false);
+			console.error(response);
+			if (callbacks != undefined && callbacks.error != undefined) {
+				callbacks.error(response);
+			}
 		}
 	});
 }
@@ -154,6 +232,6 @@ function destroyLocalTokens() {
 
 function signout() {
 	destroyLocalTokens();
-	refreshUi();
+	window.location.href = "/index.html";
 	return false;
 }

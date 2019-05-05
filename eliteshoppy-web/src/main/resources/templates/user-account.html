@@ -17,6 +17,7 @@
 		<div class="banner-bootom-w3-agileits">
 			<div class="container">
 				<div class="row">
+					<!-- Change Password -->
 					<div class="col-md-4">
 						<h4>Change Password</h4>
 						<br>
@@ -40,8 +41,42 @@
 							</div>
 						</form>
 					</div>
-					<div class="col-md-8">
+					
+					<!-- Profile Settings -->
+					<div class="col-md-4">
 						<h4>Account Settings</h4>
+						<br>
+						<div class="alert alert-danger error" id="accountSettingsErr"></div>
+						<div class="alert alert-success success" id="accountSettingsSuccess"></div>
+						<form class="form-horizontal" name="accountSettingsForm" id="accountSettingsForm">
+							<div class="form-group">
+								<div class="col-sm-10">
+									<input type="text" class="form-control" placeholder="Full Name" name="fullName" id="fullName" pattern="\s*(\S\s*){6,}" title="Name should have at least 6 characters" required />
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-10">
+									<input type="button" id="updateBtn" class="btn btn-info" value="Update" onclick="updateAccount();">
+								</div>
+							</div>
+						</form>
+					</div>
+					
+					<!-- Convert to Seller Account -->
+					<div class="col-md-4 authorized customer">
+						<h4>Seller Account</h4>
+						<br>
+						<div class="alert alert-danger error" id="sellerAccError"></div>
+						<div class="alert alert-success success" id="sellerAccSuccess"></div>
+						<p>Register & Grow your business today with best online selling platform for e-commerce solutions.</p><br>
+						<p class="alert alert-warning"><b>Important:</b> Once you converted your account to seller account, you won't be able to covert it back to normal account.</p><br>
+						<form class="form-horizontal">
+							<div class="form-group">
+								<div class="col-sm-10">
+									<input type="button" id="sellerBtn" class="btn btn-warning" value="Covert my account to seller account" onclick="convertToSeller()">
+								</div>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>

@@ -14,12 +14,35 @@ function refreshUi() {
 		$(".authorized.all").show();
 		$(".authorized." + authUser.userType.toLowerCase()).show();
 		$("#authUserName").text(title(authUser.fullName));
+		$("#userType").text(" (" + authUser.userType + ")");
 	}
 }
 
 function showErrorModal(msg) {
 	$("#errorModalText").text(msg);
 	$('#errorModal').modal('show');
+}
+
+function confirmationModal(modalText, confirmFunction) {
+	$("#modalConfirmText").text(modalText);
+	$('#confirmModal').modal('show');
+	$('#confirmModal').modal({
+		backdrop : 'static',
+		keyboard : false
+	}).on('click', '#modalConfirmBtn', function(e) {
+		confirmFunction();
+	});
+}
+
+function redirectUnauthenticated() {
+	if (localStorage.principalUser == undefined) {
+		window.location.href = "/index.html";
+	}
+}
+
+function invertButton(btnId, value, disabled) {
+	$("#" + btnId).val(value);
+	$("#" + btnId).attr("disabled", disabled);
 }
 
 $(document).ready(function() {
