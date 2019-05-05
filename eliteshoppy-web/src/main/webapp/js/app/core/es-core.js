@@ -40,6 +40,12 @@ function redirectUnauthenticated() {
 	}
 }
 
+function redirectByRole(roles) {
+	if (localStorage.principalUser == undefined || roles.indexOf(JSON.parse(localStorage.principalUser).userType) == -1) {
+		window.location.href = "/index.html";
+	}
+}
+
 function invertButton(btnId, value, disabled) {
 	$("#" + btnId).val(value);
 	$("#" + btnId).attr("disabled", disabled);

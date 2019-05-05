@@ -5,10 +5,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class AccountController {
+public class ProductController {
 
-	@GetMapping({"user-account.html"})
-	public String account(ModelMap model) {
-		return "user-account";
+	@GetMapping({"product.html"})
+	public String product(ModelMap model) {
+		return "product";
 	}
 }
