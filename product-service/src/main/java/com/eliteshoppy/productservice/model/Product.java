@@ -24,7 +24,8 @@ public class Product {
 	private int availableQuantity;
 	private boolean active;
 	private String ownerId;
+	private String idealFor;
 	private LocalDateTime createdDate;
 	private LocalDateTime updatedDate;
-	private List<Attribute> attributes;
+	private List<ProductAttribute> attributes;
 }
