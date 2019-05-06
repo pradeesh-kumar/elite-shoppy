@@ -11,4 +11,9 @@ public class ProductController {
 	public String product(ModelMap model) {
 		return "product";
 	}
+	
+	@GetMapping({"add-product.html"})
+	public String addProduct(ModelMap model) {
+		return "add-product";
+	}
 }

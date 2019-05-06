@@ -1,6 +1,7 @@
 package com.eliteshoppy.productservice.service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,11 @@ public class ProductServiceImpl implements ProductService {
 	public Product findById(String productId) {
 		return productRepository.findById(productId).orElseThrow(
 				() -> new ProductNotFoundException(String.format("Product for the id %d is not available", productId)));
+	}
+	
+	@Override
+	public List<Product> findByOwnerId(String ownerId) {
+		return productRepository.findByOwnerId(ownerId).orElseThrow(() -> new ProductNotFoundException("Owner doesn't own any products"));
 	}
 
 	@Override

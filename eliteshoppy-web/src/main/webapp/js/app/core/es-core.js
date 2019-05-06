@@ -1,3 +1,5 @@
+var authUser = null;
+
 function title(str) {
 	return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
@@ -53,4 +55,7 @@ function invertButton(btnId, value, disabled) {
 
 $(document).ready(function() {
 	refreshUi();
+	if (localStorage.principalUser != undefined) {
+		authUser = JSON.parse(localStorage.principalUser);
+	}
 });

@@ -1,5 +1,7 @@
 package com.eliteshoppy.productservice.controller;
 
+import java.util.List;
+
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.validation.constraints.NotNull;
@@ -35,6 +37,12 @@ public class ProductController {
 	@PermitAll
 	public ResponseEntity<Product> getProduct(@PathVariable String productId) {
 		return new ResponseEntity<>(productService.findById(productId), HttpStatus.OK);
+	}
+	
+	@GetMapping("/owner/{ownerId}")
+	@RolesAllowed({UserRole.ROLE_ADMIN, UserRole.ROLE_SELLER})
+	public ResponseEntity<List<Product>> getProductsByOwner(@PathVariable String ownerId) {
+		return new ResponseEntity<>(productService.findByOwnerId(ownerId), HttpStatus.OK);
 	}
 	
 	@PostMapping

@@ -6069,22 +6069,3 @@ p.w3ls_para {
 		left: 68% !important;
 	}
 }
-
-.anonymous, .authorized {
-	display: none;
-}
-
-.alert-xs {
-	font-size: 0.8em;
-	padding: 8px;
-}
-
-.error-xs {
-	font-weight: normal;
-	margin-bottom: 7px;
-	display: block;
-}
-
-.error, .success {
-	display: none;
-}
