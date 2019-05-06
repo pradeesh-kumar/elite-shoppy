@@ -21,6 +21,7 @@ public class Product {
 	private String category;
 	private String description;
 	private BigDecimal price;
+	private BigDecimal offerPrice;
 	private int availableQuantity;
 	private boolean active;
 	private String ownerId;
