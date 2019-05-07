@@ -7,4 +7,6 @@ import com.eliteshoppy.productservice.model.Attribute;
 public interface AttributeService {
 
 	List<Attribute> findAll();
+	Attribute save(Attribute attribute);
+	void delete(String id);
 }

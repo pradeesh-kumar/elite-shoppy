@@ -18,4 +18,14 @@ public class AttributeServiceImpl implements AttributeService {
 	public List<Attribute> findAll() {
 		return atrRepo.findAll();
 	}
+
+	@Override
+	public Attribute save(Attribute attribute) {
+		return atrRepo.save(attribute);
+	}
+
+	@Override
+	public void delete(String id) {
+		atrRepo.deleteById(id);
+	}
 }

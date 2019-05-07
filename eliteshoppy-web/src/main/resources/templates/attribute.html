@@ -14,7 +14,8 @@
 
 		<div class="banner-bootom-w3-agileits">
 			<div class="container">
-				<div class="alert alert-danger hide" id="atrLoadError">Something went wrong!</div>
+				<div class="alert alert-danger hide" id="error">Something went wrong!</div>
+				<div class="alert alert-success hide" id="success"></div>
 				<input type="text" id="searchInput" class="searchinput" onkeyup="atrSearch()" placeholder="Search for names.." title="Type in a name">
 				<input type="button" class="btn btn-info pull-right" value="Add New Attribute" onclick="addAttribute()" />
 				<table class="table table-hover with-input" id="atrTable">
@@ -26,36 +27,7 @@
 						</tr>
 					</thead>
 					<tbody id="atrBody">
-						<tr>
-							<td><input type="text" value="Size" class="form-control unboardered" /></td>
-							<td>
-								<input type="text" id="tagInput" value="" data-role="tagsinput" placeholder="Enter Attribute Value and then press <Enter>" />
-							</td>
-							<td>
-								<input type="button" value="Save" class="btn btn-xs btn-success" onclick="saveAtr(this)" />
-								<input type="button" value="Delete" class="btn btn-xs btn-danger" />
-							</td>
-						</tr>
-						<tr>
-							<td><input type="text" value="Type" class="form-control unboardered" /></td>
-							<td>
-								<input type="text" value="" data-role="tagsinput" placeholder="Enter Attribute Value and then press <Enter>" />
-							</td>
-							<td>
-								<input type="button" value="Save" class="btn btn-xs btn-success" onclick="saveAtr(this)" />
-								<input type="button" value="Delete" class="btn btn-xs btn-danger" />
-							</td>
-						</tr>
-						<tr>
-							<td><input type="text" value="Color" class="form-control unboardered" /></td>
-							<td>
-								<input type="text" value="" data-role="tagsinput" placeholder="Enter Attribute Value and then press <Enter>" />
-							</td>
-							<td>
-								<input type="button" value="Save" class="btn btn-xs btn-success" onclick="saveAtr(this)" />
-								<input type="button" value="Delete" class="btn btn-xs btn-danger" />
-							</td>
-						</tr>
+						
 					</tbody>
 				</table>
 			</div>
