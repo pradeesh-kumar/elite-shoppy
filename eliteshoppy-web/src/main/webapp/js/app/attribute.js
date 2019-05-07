@@ -11,7 +11,8 @@ function atrSearch() {
 	for (i = 0; i < tr.length; i++) {
 		td = tr[i].getElementsByTagName("td")[0];
 		if (td) {
-			txtValue = td.textContent || td.innerText;
+			txtValue = td.getElementsByTagName("input")[0].value;
+			console.log(txtValue);
 			if (txtValue.toUpperCase().indexOf(filter) > -1) {
 				tr[i].style.display = "";
 			} else {
@@ -33,7 +34,7 @@ function addAttribute() {
 	var td = $('<td>');
 	td.append(ti);
 	row.append(td);
-	row.append('<td><input type="button" value="Save" class="btn btn-xs btn-success" onclick="saveAtr(this)" /> <input type="button" value="Delete" class="btn btn-xs btn-danger" onclick="deleteAtr(this)" /></td>');
+	row.append('<td><input type="button" value="Delete" class="btn btn-xs btn-danger" onclick="deleteAtr(this)" /></td>');
 	$("#atrBody").prepend(row);
 	ti.tagsinput();
 }

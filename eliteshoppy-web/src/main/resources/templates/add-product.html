@@ -70,20 +70,19 @@
 						<div class="clearfix"></div>
 						<div class="form-group col-md-2">
 							<label for="attributes">Attributes</label>
-							<select class="form-control" id="atrList">
-								
+							<select name="attributes" id="attributes" multiple="multiple" class="form-control">
 							</select>
 						</div>
-						<div class="col-md-6">
+						<div class="col-md-8">
 							<table class="table table-hover table-sm" style="margin-top: 22px;">
 								<thead class="thead-dark">
 									<tr>
-										<th scope="col">Attribute</th>
+										<th scope="col" style="width:10%">Attribute</th>
 										<th scope="col">Values</th>
-										<th scope="col">Action</th>
+										<th scope="col" style="width:10%">Action</th>
 									</tr>
 								</thead>
-								<tbody>
+								<tbody id="atrBody">
 									<tr>
 										<th scope="row">1</th>
 										<td>Mark</td>

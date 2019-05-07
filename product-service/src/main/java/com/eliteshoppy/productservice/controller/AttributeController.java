@@ -2,6 +2,7 @@ package com.eliteshoppy.productservice.controller;
 
 import java.util.List;
 
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.validation.constraints.NotNull;
 
@@ -31,7 +32,7 @@ public class AttributeController {
 	private AttributeService atrService;
 	
 	@GetMapping
-	@RolesAllowed({UserRole.ROLE_ADMIN})
+	@PermitAll
 	public ResponseEntity<List<Attribute>> getAll() {
 		return new ResponseEntity<>(atrService.findAll(), HttpStatus.OK);
 	}
