@@ -16,6 +16,6 @@ public class Attribute {
 	private String id;
 	
 	private String name;
-	private List<String> value;
+	private List<String> values;
 
 }

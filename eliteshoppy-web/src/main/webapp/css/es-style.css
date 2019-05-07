@@ -40,3 +40,12 @@ form label {
 .table-sm th, .table-sm td {
 	padding: 2px !important;
 }
+
+table.with-input .bootstrap-tagsinput, table.with-input input[type='text'] {
+	width: 100%;
+}
+
+.unboardered {
+	border: none;
+	margin: 0px;
+}
