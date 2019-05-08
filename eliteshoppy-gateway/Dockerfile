@@ -2,8 +2,8 @@
 # Build stage
 #
 FROM maven:3.6-jdk-8 AS build
-COPY eliteshoppy-gateway/src /home/app/src
-COPY eliteshoppy-gateway/pom.xml /home/app/pom.xml
+COPY /eliteshoppy-gateway/src /home/app/src
+COPY /eliteshoppy-gateway/pom.xml /home/app/pom.xml
 RUN mvn -f /home/app/pom.xml clean package
 
 #
