@@ -1,10 +1,11 @@
-MAINTAINER pradeeshbm67@gmail.com
-
 #
 # Build stage
 #
 # Build eliteshoppy-common
 FROM maven:3.6-jdk-8 AS build
+
+MAINTAINER pradeeshbm67@gmail.com
+
 COPY eliteshoppy-commons /tmp/eliteshoppy-commons
 RUN mvn -f /tmp/eliteshoppy-commons/pom.xml clean install
 

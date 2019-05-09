@@ -4,6 +4,7 @@
 FROM maven:3.6-jdk-8 AS build
 
 MAINTAINER pradeeshbm67@gmail.com
+
 COPY eureka-server/src /home/app/src
 COPY eureka-server/pom.xml /home/app/pom.xml
 RUN mvn -f /home/app/pom.xml clean package
