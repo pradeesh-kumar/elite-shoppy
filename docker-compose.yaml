@@ -1,0 +1,39 @@
+version: '1.0'
+
+services:
+	eureka-server:
+		image: gcr.io/eliteshoppy/es-eureka-server
+		ports:
+			- "8761":"8761"
+			
+	config-server:
+		image: gcr.io/eliteshoppy/es-eureka-server
+		ports:
+			- "8761":"8761"
+			
+	eliteshoppy-gateway:
+		image: gcr.io/eliteshoppy/es-gateway
+		ports:
+			- "8111":"8111"
+		depends_on:
+			- eureka-server
+	
+	auth-service:
+		image: gcr.io/eliteshoppy/es-auth-service
+		ports:
+			- "8082":"8082"
+		depends_on:
+			- eureka-server
+	
+	product-service:
+		image: gcr.io/eliteshoppy/es-product-service
+		ports:
+			- "9090":"9090"
+		depends_on:
+			- eureka-server
+			
+	eliteshoppy-web:
+		image: gcr.io/eliteshoppy/es-web
+		ports:
+			- "8081":"8081"
+			
