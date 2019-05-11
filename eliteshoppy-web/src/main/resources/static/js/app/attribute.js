@@ -34,6 +34,7 @@ function addAttribute() {
 	var td = $('<td>');
 	td.append(ti);
 	row.append(td);
+	row.append('<td><input type="button" value="Save" class="btn btn-xs btn-success" onclick="saveAtr(this)" /></td>');
 	row.append('<td><input type="button" value="Delete" class="btn btn-xs btn-danger" onclick="deleteAtr(this)" /></td>');
 	$("#atrBody").prepend(row);
 	ti.tagsinput();
