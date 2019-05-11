@@ -29,4 +29,5 @@ public class Product {
 	private LocalDateTime createdDate;
 	private LocalDateTime updatedDate;
 	private List<ProductAttribute> attributes;
+	private List<String> images;
 }

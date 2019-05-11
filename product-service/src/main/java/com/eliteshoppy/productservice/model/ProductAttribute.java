@@ -9,5 +9,5 @@ import lombok.Data;
 public class ProductAttribute {
 
 	private String name;
-	private List<String> value;
+	private List<String> values;
 }

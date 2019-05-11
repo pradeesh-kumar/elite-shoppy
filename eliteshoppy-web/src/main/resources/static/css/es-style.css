@@ -49,3 +49,7 @@ table.with-input .bootstrap-tagsinput, table.with-input input[type='text'] {
 	border: none;
 	margin: 0px;
 }
+
+.color-red {
+	color: #ff0000;
+}
