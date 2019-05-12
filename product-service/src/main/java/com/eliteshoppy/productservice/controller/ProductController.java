@@ -65,4 +65,13 @@ public class ProductController {
 		return new ResponseEntity<>(new SuccessResponse("Product has been updated."), HttpStatus.OK);
 	}
 	
+	@PutMapping("/status/{productId}/{status}")
+	@RolesAllowed({UserRole.ROLE_ADMIN, UserRole.ROLE_SELLER})
+	public ResponseEntity<HttpResponse> updateStatus(@PathVariable String productId, @PathVariable boolean status) {
+		Product p = productService.findById(productId);
+		p.setActive(status);
+		productService.update(p);
+		return new ResponseEntity<>(new SuccessResponse("Product has been updated."), HttpStatus.OK);
+	}
+	
 }

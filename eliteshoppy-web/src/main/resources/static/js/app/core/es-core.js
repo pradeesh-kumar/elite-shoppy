@@ -53,6 +53,14 @@ function invertButton(btnId, value, disabled) {
 	$("#" + btnId).attr("disabled", disabled);
 }
 
+function formatDate(dt) {
+	if (dt == undefined || dt == null) {
+		return null;
+	}
+	var d = new Date(dt);
+	return '' + d.getUTCDate() + '/' + d.getUTCMonth() + '/' + d.getUTCFullYear() + '';
+}
+
 $(document).ready(function() {
 	refreshUi();
 	if (localStorage.principalUser != undefined) {

@@ -15,49 +15,23 @@
 		<div class="banner-bootom-w3-agileits">
 			<div class="container">
 				<div class="alert alert-info hide" id="noproductlbl">No products found!</div>
+				<div class="alert alert-success hide" id="success"></div>
 				<div class="alert alert-danger hide" id="productLoadError">Something went wrong!</div>
-				<input type="text" id="searchInput" class="searchinput" onkeyup="productSearch()" placeholder="Search for names.." title="Type in a name">
+				<input type="text" id="searchInput" class="searchinput input-sm" onkeyup="productSearch()" placeholder="Search for names.." title="Type in a name">
 				<a href="add-product.html" class="btn btn-success pull-right">Add Product</a>
-				<table class="table table-hover" id="productTable">
+				<table class="table table-hover table-md" id="productTable">
 					<thead>
 						<tr>
 							<th>Name</th>
 							<th>Category</th>
 							<th>Quantities</th>
 							<th>Price</th>
-							<th>Active</th>
 							<th>Creation Dt</th>
-							<th>Action</th>
+							<th>Updated Dt</th>
+							<th width="8%">Action</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td>Mark</td>
-							<td>1</td>
-							<td>Otto</td>
-							<td>1</td>
-							<td>Mark</td>
-							<td>Otto</td>
-							<td>Action</td>
-						</tr>
-						<tr>
-							<td>abc</td>
-							<td>1</td>
-							<td>Otto</td>
-							<td>1</td>
-							<td>zzz</td>
-							<td>Otqqqto</td>
-							<td>Action</td>
-						</tr>
-						<tr>
-							<td>2fdfwe</td>
-							<td>1</td>
-							<td>sdw</td>
-							<td>1</td>
-							<td>hhg</td>
-							<td>wew</td>
-							<td>Action</td>
-						</tr>
+					<tbody id="prodBody">
 					</tbody>
 				</table>
 			</div>

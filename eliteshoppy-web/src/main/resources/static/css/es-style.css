@@ -39,7 +39,14 @@ form label {
 
 .table-sm th, .table-sm td {
 	padding: 2px !important;
+	font-size: 0.8em !important;
 }
+
+.table-md th, .table-md td {
+	padding: 6px !important;
+	font-size: 0.82em !important;
+}
+
 
 table.with-input .bootstrap-tagsinput, table.with-input input[type='text'] {
 	width: 100%;
@@ -52,4 +59,11 @@ table.with-input .bootstrap-tagsinput, table.with-input input[type='text'] {
 
 .color-red {
 	color: #ff0000;
+}
+
+.searchinput.input-sm {
+    background-size: 17px;
+    background-position: 7px 6px;
+    font-size: 14px;
+    padding: 9px 20px 10px 32px;
 }
