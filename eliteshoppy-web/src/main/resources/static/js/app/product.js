@@ -80,7 +80,7 @@ function addProductRow(p) {
 	row.append('<td>' + formatDate(p.updatedDate) + '</td>');
 	
 	var btns = '<td><button class="btn btn-xs btn-danger" onclick="deleteProduct(this)" title="Remove this product"><b class="glyphicon glyphicon-remove-circle"></b></button>';
-	if (p.status) {
+	if (p.active) {
 		btns += ' <button class="btn btn-xs btn-warning" onclick="disableProduct(this)" title="Disable this product"><b class="fa fa-times"></b></button>';
 	} else {
 		btns += ' <button class="btn btn-xs btn-success" onclick="enableProduct(this)" title="Enable this product"><b class="fa fa-check-circle"></b></button>';
@@ -105,15 +105,83 @@ function loadProducts(products) {
 
 function enableProduct(ctr) {
 	productId = ctr.parentElement.parentElement.id;
-	updateStatus(productId, true);
+	updateStatus(productId, true, function() {
+		$(ctr).removeClass("btn-success")
+			.addClass("btn-warning")
+			.attr("title", "Disable this product")
+			.attr("onclick", "disableProduct(this)")
+			.html('<b class="fa fa-times"></b>');
+	});
 }
 
 function disableProduct(ctr) {
-	productId = ctr.parentElement.parentElement.id;
-	updateStatus(productId, false);
+	confirmationModal("Are you sure you want to disable this product?", function() {
+		productId = ctr.parentElement.parentElement.id;
+		updateStatus(productId, false, function() {
+			$(ctr).removeClass("btn-warning")
+			.addClass("btn-success")
+			.attr("title", "Enable this product")
+			.attr("onclick", "enableProduct(this)")
+			.html('<b class="fa fa-check-circle"></b>');
+		});
+	});
 }
 
-function updateStatus(productId, status) {
+function editProduct(ctr) {
+	productId = ctr.parentElement.parentElement.id;
+	window.location.href = "/edit-product.html?productId=" + productId;
+}
+
+function deleteProduct(ctr) {
+	confirmationModal("Are you sure you want to remove this product?", function() {
+		productId = ctr.parentElement.parentElement.id;
+		$.ajax({
+			'url' : DELETE_PRODUCT + productId,
+			'type' : 'DELETE',
+			'headers' : {
+				'Authorization' : 'bearer ' + localStorage.getItem("access_token")
+			},
+			'success' : function(response) {
+				$("#productLoadError").hide();
+				$("#success").removeClass("hide").text("Product has been removed.");
+				ctr.parentElement.parentElement.remove();
+			},
+			'error' : function(response) {
+				/* Unauthenticated */
+				if (response.status == 401) {
+					console.log("Access token has been expired! Trying to login with refresh token...");
+					signinWithRefreshToken(localStorage.refresh_token, {
+						'invalidToken': function(response) {
+							console.log("Refresh token has been expired!");
+							console.log("Logging out the user.");
+							signout();
+						},
+						'success': function(response) {
+							console.log("Access token successfully obtained from Refresh token: " + response);
+							storeToken(response);
+							fetchPricipalUser();
+							deleteProduct();
+						},
+						'error': function(response) {
+							console.log("Error: " + response);
+							$("#success").hide();
+							$("#productLoadError").removeClass("hide").addClass("show").text("Something went wrong! Please try again later.");
+						}
+					});
+				} else if(response.status == 404) {
+					$("#success").hide();
+					$("#productLoadError").removeClass("hide").addClass("show").text("Something went wrong! Please try again later.");
+				} else {
+					console.log("Error occured while deleting product!" + response);
+					$("#success").hide();
+					$("#productLoadError").removeClass("hide").addClass("show").text("Something went wrong! Please try again later.");
+				}
+			}
+		});
+	});
+}
+
+function updateStatus(productId, status, successCallback) {
 	$.ajax({
 		'url' : UPDATE_PRODUCT_STATUS + productId + "/" + status,
 		'type' : 'PUT',
@@ -123,6 +191,7 @@ function updateStatus(productId, status) {
 		'success' : function(response) {
 			$("#productLoadError").hide();
 			$("#success").removeClass("hide").text("Product has been updated.");
+			successCallback();
 		},
 		'error' : function(response) {
 			/* Unauthenticated */
@@ -138,7 +207,7 @@ function updateStatus(productId, status) {
 						console.log("Access token successfully obtained from Refresh token: " + response);
 						storeToken(response);
 						fetchPricipalUser();
-						updateStatus(productId, status);
+						updateStatus(productId, status, successCallback);
 					},
 					'error': function(response) {
 						console.log("Error: " + response);
@@ -150,7 +219,7 @@ function updateStatus(productId, status) {
 				$("#success").hide();
 				$("#productLoadError").removeClass("hide").addClass("show").text("Something went wrong! Please try again later.");
 			} else {
-				console.log("Error occured while Loading products! " + response);
+				console.log("Error occured while updating products! " + response);
 				$("#success").hide();
 				$("#productLoadError").removeClass("hide").addClass("show").text("Something went wrong! Please try again later.");
 			}

@@ -1,9 +1,11 @@
 /* Redirect other than Seller and Admin user*/
 redirectByRole([ "Seller", "Admin" ]);
 var attributes = null;
+var loadedProduct = null;
 
-function addProduct() {
+function updateProduct() {
 	if ($('#addProductForm')[0].checkValidity()) {
+		var id = $("#productId").val();
 		var name = $("#name").val();
 		var category = $("#category").val();
 		var idealFor = $("#idealFor").val();
@@ -23,23 +25,21 @@ function addProduct() {
 			prodAttrs.push({'name': atrName, 'values': atrValues});
 		});
 		
-		requestPayload = {
-			'name': name,
-			'category': category,
-			'idealFor': idealFor,
-			'availableQuantity': availableQuantity,
-			'price': price,
-			'offerPrice': offerPrice,
-			'description': description,
-			'active': false,
-			'attributes': prodAttrs
-		}
-		accessToken = localStorage.getItem("access_token");
+		loadedProduct.name = name;
+		loadedProduct.category = category;
+		loadedProduct.idealFor = idealFor;
+		loadedProduct.availableQuantity = availableQuantity;
+		loadedProduct.price = price;
+		loadedProduct.offerPrice = offerPrice;
+		loadedProduct.description = description;
+		loadedProduct.attributes = prodAttrs;
 		
-		invertButton("addBtn", "Adding...", true);
+		requestPayload = loadedProduct;
+		accessToken = localStorage.getItem("access_token");
+		invertButton("updBtn", "Updating...", true);
 		$.ajax({
-			'url' : CREATE_PRODUCT,
-			'type' : 'POST',
+			'url' : UPDATE_PRODUCT,
+			'type' : 'PUT',
 			'contentType' : 'application/json',
 			'data' : JSON.stringify(requestPayload),
 			'dataType' : 'json',
@@ -48,8 +48,8 @@ function addProduct() {
 			},
 			'success' : function(result) {
 				$("#error").hide();
-				$("#success").removeClass("hide").text("Product has been added.");
-				invertButton("addBtn", "Add", false);
+				$("#success").removeClass("hide").text("Product has been updated.");
+				invertButton("updBtn", "Update", false);
 				$("#toTop").click();
 			},
 			'error' : function(response) {
@@ -65,7 +65,7 @@ function addProduct() {
 							console.log("Access token successfully obtained from Refresh token: " + response);
 							storeToken(response);
 							fetchPricipalUser();
-							addProduct();
+							updateProduct();
 						},
 						'error': function(response) {
 							console.log("Error: " + response);
@@ -79,7 +79,7 @@ function addProduct() {
 					$("#success").hide();
 					$("#error").show().text("Something went wrong! Please try again later!");
 				}
-				invertButton("addBtn", "Add", false);
+				invertButton("updBtn", "Update", false);
 				$("#toTop").click();
 			}
 		});
@@ -93,7 +93,7 @@ function removeAttributeRow(attrName) {
 	$('#attributes').multiselect('deselect', attrName);
 }
 
-function addAttributeRow(attrName) {
+function addAttributeRow(attrName, values) {
 	var row = $('<tr>');
 	row.append('<td>' + attrName + '</td>');
 	var ti = $('<input />', {
@@ -110,7 +110,7 @@ function addAttributeRow(attrName) {
 	ti.tagsinput();
 	
 	var filteredAtr = attributes.find(function(e) { return e.name == attrName });
-	var atrValues = filteredAtr.values;
+	var atrValues = values == null ? filteredAtr.values : values;
 	if (atrValues != undefined || atrValues != null || atrValues.length > 0) {
 		atrValues.forEach(function(v) {
 			ti.tagsinput('add', v);
@@ -133,6 +133,29 @@ function loadAttributes() {
 	                	removeAttributeRow($(option).val());
 	                }
 	            }
+			});
+		}
+		loadProduct();
+	});
+}
+
+function loadProduct() {
+	var productId = $("#productId").val();
+	$.get(GET_PRODUCT + productId, function(response) {
+		loadedProduct = response;
+		
+		$("#name").val(response.name);
+		$("#category").val(response.category);
+		$("#idealFor").val(response.idealFor);
+		$("#availableQuantity").val(response.availableQuantity);
+		$("#price").val(response.price);
+		$("#offerPrice").val(response.offerPrice);
+		$("#description").val(response.description);
+		
+		if (response.attributes.length > 0) {
+			response.attributes.forEach(function(a) {
+				addAttributeRow(a.name, a.values);
+				$('#attributes').multiselect('select', a.name);
 			});
 		}
 	});

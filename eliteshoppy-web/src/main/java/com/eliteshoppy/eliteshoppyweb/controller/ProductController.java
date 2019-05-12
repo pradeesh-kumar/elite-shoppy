@@ -17,6 +17,12 @@ public class ProductController {
 		return "add-product";
 	}
 	
+	@GetMapping({"edit-product.html"})
+	public String editProduct(ModelMap model, String productId) {
+		model.addAttribute("productId", productId);
+		return "edit-product";
+	}
+	
 	@GetMapping({"attribute.html"})
 	public String attribute(ModelMap model) {
 		return "attribute";

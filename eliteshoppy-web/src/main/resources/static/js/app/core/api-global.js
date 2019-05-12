@@ -8,6 +8,9 @@ var USER_UPDATE_URL = API_URL + "/auth-service/useraccount";
 /* Product-Service URLS */
 var PRODUCT_LOADBYOWNER = API_URL + "/product-service/product/owner/";
 var CREATE_PRODUCT = API_URL + "/product-service/product";
+var GET_PRODUCT = API_URL + "/product-service/product/";
+var UPDATE_PRODUCT = API_URL + "/product-service/product";
+var DELETE_PRODUCT = API_URL + "/product-service/product/";
 var UPDATE_PRODUCT_STATUS = API_URL + "/product-service/product/status/";
 var GET_ALL_ATTRIBUTES = API_URL + "/product-service/attribute";
 var CREATE_ATTRIBUTE = API_URL + "/product-service/attribute";

@@ -1,13 +1,13 @@
 <div xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="layout/default">
 
-	<span id="pageTitle">Elite Shoppy - Add Product</span>
+	<span id="pageTitle">Elite Shoppy - Edit Product</span>
 	<div layout:fragment="content">
 
 		<div class="page-head_agile_info_w3l">
 			<div class="container">
 				<h3>
-					Add<span>Product </span>
+					Edit<span>Product </span>
 				</h3>
 			</div>
 		</div>
@@ -19,6 +19,7 @@
 
 				<div class="row">
 					<form role="form" name="addProductForm" id="addProductForm">
+						<input type="hidden" id="productId" name="productId" th:value="${productId}" />
 						<div class="form-group col-md-4">
 							<label for="name">Name</label>
 							<input type="text" class="form-control" id="name" name="name" placeholder="Product Name" required/>
@@ -88,14 +89,22 @@
 						</div>
 						<div class="clearfix"></div>
 						<div class="col-md-4">
-							<input type="button" class="btn btn-info" value="Add" onclick="addProduct()" id="addBtn" />
+							<input type="button" class="btn btn-info" value="Update" onclick="updateProduct()" id="updBtn" />
 							<input type="reset" class="btn btn-default" value="Reset" />
 						</div>
 					</form>
-					<div class="clearfix"></div>
+					<div class="clearfix"></div><hr />
+					<h3 align="center">Product Images</h3><br/><br/>
+					<div class="row">
+				        <div class="col-xs-12 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">  
+				            <input id="input-1a" data-show-upload="false" name="images" type="file" class="file" multiple="multiple" data-show-preview="true" />
+				            <input type="button" value="Upload" class="btn btn-success" onclick="uploadImages()" /> 
+				        </div>
+				    </div>
+				    <div class="clearfix"></div><hr />
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-<script type="text/javascript" th:src="@{/js/app/add-product.js}"></script>
+<script type="text/javascript" th:src="@{/js/app/edit-product.js}"></script>
