@@ -19,10 +19,11 @@ function uploadImages() {
 			'type' : 'POST',
 			'enctype' : 'multipart/form-data',
 			'data' : formData,
-			'cache': false,
-			contentType: false,
 			'processData': false,
-			'timeout': 600000,
+			'contentType': false,
+			'cache': false,
+			'multipart': true,
+			'timeout': 0,
 			'success': function(response) {
 				$("#imgUploadError").hide();
 				$("#imgUploadSuccess").removeClass("hide");
