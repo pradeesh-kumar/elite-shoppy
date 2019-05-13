@@ -19,14 +19,11 @@ function uploadImages() {
 	    	'url' : UPLOAD_IMAGE,
 			'type' : 'POST',
 			'enctype' : 'multipart/form-data',
-			'contentType' : 'false',
 			'data' : formData,
 			'processData': false,
 			'cache': false,
 			'timeout': 600000,
-			'headers' : {
-				'Authorization' : 'bearer ' + localStorage.getItem("access_token")
-			},
+			
 			'success': function(response) {
 				$("#imgUploadError").hide();
 				$("#imgUploadSuccess").removeClass("hide");
