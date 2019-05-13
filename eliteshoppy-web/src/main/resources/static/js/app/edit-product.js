@@ -20,12 +20,12 @@ function uploadImages() {
 			'type' : 'POST',
 			'enctype' : 'multipart/form-data',
 			'contentType' : 'false',
-			'data' : JSON.stringify(requestPayload),
+			'data' : formData,
 			'processData': false,
 			'cache': false,
 			'timeout': 600000,
 			'headers' : {
-				'Authorization' : 'bearer ' + accessToken
+				'Authorization' : 'bearer ' + localStorage.getItem("access_token")
 			},
 			'success': function(response) {
 				$("#imgUploadError").hide();

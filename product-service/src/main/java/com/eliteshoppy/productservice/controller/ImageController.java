@@ -19,7 +19,7 @@ import com.eliteshoppy.productservice.model.ProductImage;
 import com.eliteshoppy.productservice.service.ImageStorageService;
 
 @RestController
-@RequestMapping("/product/image")
+@RequestMapping("/image")
 @Validated
 public class ImageController {
 	

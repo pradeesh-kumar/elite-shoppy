@@ -19,7 +19,7 @@ var CREATE_ATTRIBUTE = API_URL + "/product-service/attribute";
 var DELETE_ATTRIBUTE = API_URL + "/product-service/attribute/";
 
 /* Image URLS */
-var UPLOAD_IMAGE = API_URL + "/product-service/product/image/upload";
+var UPLOAD_IMAGE = API_URL + "/product-service/image/upload";
 
 /* Error Messages */
 var ERROR_MSG_SIGNIN = "Something went wrong while signing in! Please try again later.";
