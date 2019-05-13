@@ -62,7 +62,8 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 			i.setProductId(productId);
 			return imageRepo.save(i);
 		} catch (IOException e) {
-			throw new FileStorageException("Could not store file " + fileName + ". Please try again!", e);
+			e.printStackTrace();
+			throw new FileStorageException("Could not store file " + fileName + ". Please try again! " + e.getMessage(), e);
 		}
 	}
 	

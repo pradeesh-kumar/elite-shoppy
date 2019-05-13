@@ -19,6 +19,9 @@ function uploadImages() {
 			'type' : 'POST',
 			'enctype' : 'multipart/form-data',
 			'data' : formData,
+			'headers' : {
+				'Authorization' : 'bearer ' + localStorage.getItem('access_token')
+			},
 			'processData': false,
 			'contentType': false,
 			'cache': false,
