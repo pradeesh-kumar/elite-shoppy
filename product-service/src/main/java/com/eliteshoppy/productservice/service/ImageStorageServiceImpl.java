@@ -1,6 +1,7 @@
 package com.eliteshoppy.productservice.service;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -11,6 +12,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -85,6 +88,20 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 	public void deleteByProductId(String productId) {
 		// TODO Code to delete images from file system
 		imageRepo.deleteByProductId(productId);
+	}
+	
+	public Resource loadFileAsResource(String fileName) {
+		try {
+			Path filePath = storageLocation.resolve(fileName).normalize();
+			Resource resource = new UrlResource(filePath.toUri());
+			if (resource.exists()) {
+				return resource;
+			} else {
+				throw new ImageNotFoundException("Image not found in storage" + fileName);
+			}
+		} catch (MalformedURLException e) {
+			throw new ImageNotFoundException("Image not found in storage" + fileName, e);
+		}
 	}
 
 }
