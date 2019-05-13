@@ -7,23 +7,22 @@ function uploadImages() {
 	if ($("#fileImages").val() == '') {
 		showErrorModal("Please select an image.");
 	} else {
+		var formData = new FormData();
 		invertButton("uploadBtn", "Uploading...", true);
 		imageFiles = document.querySelector('#fileImages').files;
-		var formData = new FormData();
 	    for(var index = 0; index < imageFiles.length; index++) {
-	        formData.append("productImages", imageFiles);
+	        formData.append("productImages", imageFiles[index]);
 	    }
-	    formData.append("productId", loadedProduct.id);
-	    
+		formData.append("productId", loadedProduct.id);
 	    $.ajax({
 	    	'url' : UPLOAD_IMAGE,
 			'type' : 'POST',
 			'enctype' : 'multipart/form-data',
 			'data' : formData,
-			'processData': false,
 			'cache': false,
+			contentType: false,
+			'processData': false,
 			'timeout': 600000,
-			
 			'success': function(response) {
 				$("#imgUploadError").hide();
 				$("#imgUploadSuccess").removeClass("hide");
