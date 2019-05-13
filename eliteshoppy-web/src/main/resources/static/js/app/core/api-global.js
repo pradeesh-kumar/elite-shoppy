@@ -12,9 +12,14 @@ var GET_PRODUCT = API_URL + "/product-service/product/";
 var UPDATE_PRODUCT = API_URL + "/product-service/product";
 var DELETE_PRODUCT = API_URL + "/product-service/product/";
 var UPDATE_PRODUCT_STATUS = API_URL + "/product-service/product/status/";
+
+/* Attribute URLS */
 var GET_ALL_ATTRIBUTES = API_URL + "/product-service/attribute";
 var CREATE_ATTRIBUTE = API_URL + "/product-service/attribute";
 var DELETE_ATTRIBUTE = API_URL + "/product-service/attribute/";
+
+/* Image URLS */
+var UPLOAD_IMAGE = API_URL + "/product-service/product/image/upload";
 
 /* Error Messages */
 var ERROR_MSG_SIGNIN = "Something went wrong while signing in! Please try again later.";

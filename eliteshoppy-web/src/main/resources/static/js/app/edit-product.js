@@ -3,6 +3,44 @@ redirectByRole([ "Seller", "Admin" ]);
 var attributes = null;
 var loadedProduct = null;
 
+function uploadImages() {
+	if ($("#fileImages").val() == '') {
+		showErrorModal("Please select an image.");
+	} else {
+		invertButton("uploadBtn", "Uploading...", true);
+		imageFiles = document.querySelector('#fileImages').files;
+		var formData = new FormData();
+	    for(var index = 0; index < imageFiles.length; index++) {
+	        formData.append("productImages", imageFiles);
+	    }
+	    formData.append("productId", loadedProduct.id);
+	    
+	    $.ajax({
+	    	'url' : UPLOAD_IMAGE,
+			'type' : 'POST',
+			'enctype' : 'multipart/form-data',
+			'contentType' : 'false',
+			'data' : JSON.stringify(requestPayload),
+			'processData': false,
+			'cache': false,
+			'timeout': 600000,
+			'headers' : {
+				'Authorization' : 'bearer ' + accessToken
+			},
+			'success': function(response) {
+				$("#imgUploadError").hide();
+				$("#imgUploadSuccess").removeClass("hide");
+				invertButton("uploadBtn", "Upload", false);
+			},
+			'error': function(response) {
+				$("#imgUploadError").removeClass("hide");
+				$("#imgUploadSuccess").hide();
+				invertButton("uploadBtn", "Upload", false);
+			}
+	    });
+	}
+}
+
 function updateProduct() {
 	if ($('#addProductForm')[0].checkValidity()) {
 		var id = $("#productId").val();

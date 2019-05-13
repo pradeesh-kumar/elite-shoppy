@@ -96,9 +96,11 @@
 					<div class="clearfix"></div><hr />
 					<h3 align="center">Product Images</h3><br/><br/>
 					<div class="row">
-				        <div class="col-xs-12 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">  
-				            <input id="input-1a" data-show-upload="false" name="images" type="file" class="file" multiple="multiple" data-show-preview="true" />
-				            <input type="button" value="Upload" class="btn btn-success" onclick="uploadImages()" /> 
+				        <div class="col-xs-12 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+				        	<div class="alert alert-success hide" id="imgUploadSuccess">Images have been uploaded!</div>
+				        	<div class="alert alert-danger hide" id="imgUploadError">Something went wrong! Please try later.</div>
+				            <input data-show-upload="false" name="fileImages" id="fileImages" type="file" class="file" multiple="multiple" data-show-preview="true" />
+				            <input type="button" value="Upload" class="btn btn-success" onclick="uploadImages()" id="uploadBtn" /> 
 				        </div>
 				    </div>
 				    <div class="clearfix"></div><hr />
