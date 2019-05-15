@@ -84,23 +84,18 @@
 		<dependency>
 			<groupId>com.google.appengine.tools</groupId>
 			<artifactId>appengine-gcs-client</artifactId>
-			<version>0.6</version>
+			<version>0.8</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.google.apis</groupId>
 			<artifactId>google-api-services-storage</artifactId>
-			<version>v1-rev135-1.23.0</version>
+			<version>v1-rev155-1.25.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.api-client</groupId>
 			<artifactId>google-api-client-appengine</artifactId>
-			<version>1.23.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>20.0</version>
+			<version>1.28.0</version>
 		</dependency>
 	</dependencies>
 
