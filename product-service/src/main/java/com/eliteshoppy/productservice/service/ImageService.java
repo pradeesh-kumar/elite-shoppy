@@ -6,7 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.eliteshoppy.productservice.model.ProductImage;
 
-public interface ImageStorageService {
+public interface ImageService {
 
 	ProductImage findById(String imageId);
 	List<ProductImage> findByProductId(String productId);

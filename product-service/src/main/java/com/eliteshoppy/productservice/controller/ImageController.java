@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.eliteshoppy.eliteshoppycommons.statics.UserRole;
 import com.eliteshoppy.productservice.model.ProductImage;
-import com.eliteshoppy.productservice.service.ImageStorageService;
+import com.eliteshoppy.productservice.service.ImageService;
 
 @RestController
 @RequestMapping("/image")
@@ -24,7 +24,7 @@ import com.eliteshoppy.productservice.service.ImageStorageService;
 public class ImageController {
 	
 	@Autowired
-	private ImageStorageService imageStorageService;
+	private ImageService imageStorageService;
 
 	@PostMapping("/upload")
 	@RolesAllowed({ UserRole.ROLE_ADMIN, UserRole.ROLE_SELLER })

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.eliteshoppy.eliteshoppycommons.exception.EliteShoppyException;
 import com.eliteshoppy.eliteshoppycommons.httpresponse.ErrorResponse;
-import com.eliteshoppy.productservice.exception.FileStorageException;
+import com.eliteshoppy.productservice.exception.StorageException;
 import com.eliteshoppy.productservice.exception.ImageNotFoundException;
 
 @ControllerAdvice
@@ -23,8 +23,8 @@ public class ImageExceptionHandler {
 		return new ResponseEntity<>(new ErrorResponse(e.getMessage()), HttpStatus.NOT_FOUND);
 	}
 
-	@ExceptionHandler(FileStorageException.class)
-	public ResponseEntity<ErrorResponse> storageException(FileStorageException e) {
+	@ExceptionHandler(StorageException.class)
+	public ResponseEntity<ErrorResponse> storageException(StorageException e) {
 		return new ResponseEntity<>(new ErrorResponse(e.getMessage()), HttpStatus.BAD_REQUEST);
 	}
 	
