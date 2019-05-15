@@ -23,7 +23,7 @@ public class CustomDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
 
 		try {
-			Optional<List<UserAccount>> userAccounts = userAccountRepo.findByUsername(username);
+			Optional<List<UserAccount>> userAccounts = userAccountRepo.findByUsername(username.toLowerCase());
 			userAccounts.orElseThrow(
 					() -> new UsernameNotFoundException("User " + username + " was not found in the database"));
 			userAccounts.get().stream().findAny().orElseThrow(

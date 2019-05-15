@@ -82,6 +82,12 @@
 			<artifactId>appengine-api-1.0-sdk</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>com.google.appengine.tools</groupId>
+			<artifactId>appengine-gcs-client</artifactId>
+			<version>0.6</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
 			<groupId>com.google.apis</groupId>
 			<artifactId>google-api-services-storage</artifactId>
 			<version>v1-rev135-1.23.0</version>

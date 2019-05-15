@@ -39,6 +39,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 
 	@Override
 	public UserAccount create(UserAccount ua) {
+		ua.setUsername(ua.getUsername().toLowerCase());
 		checkIfExist(ua.getUsername());
 		ua.setCreationDate(LocalDateTime.now());
 		ua.setPassword(passwordEncoder.encode(ua.getPassword()));
