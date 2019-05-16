@@ -33,11 +33,21 @@ public class GoogleCloudStorageService implements StorageService {
 	private String cloudStorageBucketName;
 	@Value("${es.gcloud.cloud-storage.storage-dir}")
 	private String storageDir;
+	@Value("${es.gcloud.cloud-storage.storage-access-key-path}")
+	private static String storageAccessKeyJsonPath;
 	
 	private static Storage storage;
 	
 	static {
-		storage = StorageOptions.getDefaultInstance().getService();
+		// storage = StorageOptions.getDefaultInstance().getService();
+		GoogleCredentials credentials;
+		try {
+			credentials = GoogleCredentials.fromStream(new FileInputStream(storageAccessKeyJsonPath))
+					.createScoped(Lists.newArrayList("https://www.googleapis.com/auth/cloud-platform"));
+			storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	static void authExplicit(String jsonPath) throws IOException {
