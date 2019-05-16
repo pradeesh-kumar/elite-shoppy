@@ -3,8 +3,6 @@ package com.eliteshoppy.productservice.service;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Base64;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -14,9 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.eliteshoppy.productservice.exception.StorageException;
 import com.google.api.gax.paging.Page;
 import com.google.auth.oauth2.GoogleCredentials;
-import com.google.cloud.storage.Acl;
-import com.google.cloud.storage.Acl.Role;
-import com.google.cloud.storage.Acl.User;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Bucket;
 import com.google.cloud.storage.Storage;
@@ -33,21 +28,11 @@ public class GoogleCloudStorageService implements StorageService {
 	private String cloudStorageBucketName;
 	@Value("${es.gcloud.cloud-storage.storage-dir}")
 	private String storageDir;
-	//@Value("${es.gcloud.cloud-storage.storage-access-key-path}")
-	private static String storageAccessKeyJsonPath = "/home/app/src/main/resources/eliteshoppy-storage-access-key.json";
 	
 	private static Storage storage;
 	
 	static {
 		storage = StorageOptions.getDefaultInstance().getService();
-		/*
-		 * GoogleCredentials credentials; try { credentials =
-		 * GoogleCredentials.fromStream(new FileInputStream(storageAccessKeyJsonPath))
-		 * .createScoped(Lists.newArrayList(
-		 * "https://www.googleapis.com/auth/cloud-platform")); storage =
-		 * StorageOptions.newBuilder().setCredentials(credentials).build().getService();
-		 * } catch (IOException e) { e.printStackTrace(); }
-		 */
 	}
 	
 	static void authExplicit(String jsonPath) throws IOException {
@@ -71,23 +56,10 @@ public class GoogleCloudStorageService implements StorageService {
 	}
 
 	private String uploadFile(MultipartFile file) throws IOException {
-	    String fileName = file.getName();
-	    
-	    // Temporary
-	    fileName = "file.jpg";
-	    
-		String resolvedPath = getResolvedPath(encodeFileName(fileName));
-		
-		/*
-		 * BlobInfo blobInfo =
-		 * storage.create(BlobInfo.newBuilder(cloudStorageBucketName, resolvedPath)
-		 * .setAcl(new ArrayList<>(Arrays.asList(Acl.of(User.ofAllUsers(),
-		 * Role.WRITER)))) .build(), file.getInputStream());
-		 */
-		
-		BlobInfo blobInfo = storage.create(BlobInfo.newBuilder(cloudStorageBucketName, fileName).build(),
+		String fileName = encodeFileName(file.getName());
+		String resolvedPath = getResolvedPath(fileName);
+		BlobInfo blobInfo = storage.create(BlobInfo.newBuilder(cloudStorageBucketName, resolvedPath).build(),
 				file.getInputStream());
-		
 		return blobInfo.getMediaLink();
 	}
 
