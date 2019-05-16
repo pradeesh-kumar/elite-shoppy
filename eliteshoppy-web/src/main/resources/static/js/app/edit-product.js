@@ -13,19 +13,19 @@ function uploadImages() {
 	    for(var index = 0; index < imageFiles.length; index++) {
 	        formData.append("productImages", imageFiles[index]);
 	    }
-		//formData.append("productId", loadedProduct.id);
+		formData.append("productId", loadedProduct.id);
+		
+		console.log(formData);
 	    $.ajax({
-	    	'url' : UPLOAD_IMAGE + "?productId=" + loadedProduct.id,
+	    	'url' : UPLOAD_IMAGE,
 			'type' : 'POST',
 			'enctype' : 'multipart/form-data',
 			'data' : formData,
-			'headers' : {
-				'Authorization' : 'bearer ' + localStorage.getItem('access_token')
-			},
+			'contentType': false,
 			'processData': false,
 			'cache': false,
 			'multipart': true,
-			'timeout': 0,
+			'timeout': 8897894,
 			'success': function(response) {
 				$("#imgUploadError").hide();
 				$("#imgUploadSuccess").removeClass("hide");

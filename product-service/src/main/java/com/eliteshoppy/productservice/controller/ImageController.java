@@ -28,10 +28,12 @@ public class ImageController {
 	@PostMapping("/upload")
 	//@RolesAllowed({ UserRole.ROLE_ADMIN, UserRole.ROLE_SELLER })
 	@PermitAll
-	public ResponseEntity<List<ProductImage>> uploadFile(
-			@RequestParam("productImages") List<MultipartFile> productImages,
+	//public ResponseEntity<List<ProductImage>> uploadFile(
+	public String uploadFile(
+			@RequestParam("productImages") MultipartFile[] productImages,
 			@RequestParam("productId") String productId) {
 
-		return new ResponseEntity<>(imageStorageService.upload(productImages, productId), HttpStatus.CREATED);
+		return productImages[0].getName();
+		//return new ResponseEntity<>(imageStorageService.upload(productImages, productId), HttpStatus.CREATED);
 	}
 }
