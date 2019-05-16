@@ -14,13 +14,13 @@ COPY product-service/src /home/app/src
 COPY product-service/pom.xml /home/app/pom.xml
 RUN mvn -f /home/app/pom.xml clean package
 
-# Export storage key as environment variable
-ENV GOOGLE_APPLICATION_CREDENTIALS=/home/app/src/main/resources/eliteshoppy-storage-access-key.json
-
 #
 # Package Stage
 #
 FROM openjdk:8
 COPY --from=build /home/app/target/product-service-0.0.1-SNAPSHOT.jar /usr/local/lib/app.jar
+COPY --from=build /home/app/src/main/resources/eliteshoppy-storage-access-key.json /home/app/eliteshoppy-storage-access-key.json
+# Export storage key as environment variable
+ENV GOOGLE_APPLICATION_CREDENTIALS=/home/app/eliteshoppy-storage-access-key.json
 EXPOSE 9090
 ENTRYPOINT ["java", "-jar", "/usr/local/lib/app.jar"]

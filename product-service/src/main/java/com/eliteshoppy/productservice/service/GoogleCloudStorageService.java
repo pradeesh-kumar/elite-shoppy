@@ -39,15 +39,15 @@ public class GoogleCloudStorageService implements StorageService {
 	private static Storage storage;
 	
 	static {
-		// storage = StorageOptions.getDefaultInstance().getService();
-		GoogleCredentials credentials;
-		try {
-			credentials = GoogleCredentials.fromStream(new FileInputStream(storageAccessKeyJsonPath))
-					.createScoped(Lists.newArrayList("https://www.googleapis.com/auth/cloud-platform"));
-			storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		storage = StorageOptions.getDefaultInstance().getService();
+		/*
+		 * GoogleCredentials credentials; try { credentials =
+		 * GoogleCredentials.fromStream(new FileInputStream(storageAccessKeyJsonPath))
+		 * .createScoped(Lists.newArrayList(
+		 * "https://www.googleapis.com/auth/cloud-platform")); storage =
+		 * StorageOptions.newBuilder().setCredentials(credentials).build().getService();
+		 * } catch (IOException e) { e.printStackTrace(); }
+		 */
 	}
 	
 	static void authExplicit(String jsonPath) throws IOException {
