@@ -25,7 +25,7 @@ function uploadImages() {
 			'processData': false,
 			'cache': false,
 			'multipart': true,
-			'timeout': 8897894,
+			'timeout': 0,
 			'success': function(response) {
 				$("#imgUploadError").hide();
 				$("#imgUploadSuccess").removeClass("hide");
