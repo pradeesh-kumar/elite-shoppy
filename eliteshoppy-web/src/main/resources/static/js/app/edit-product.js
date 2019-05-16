@@ -20,6 +20,9 @@ function uploadImages() {
 	    	'url' : UPLOAD_IMAGE,
 			'type' : 'POST',
 			'enctype' : 'multipart/form-data',
+			'headers' : {
+				'Authorization' : 'bearer ' + localStorage.getItem("access_token")
+			},
 			'data' : formData,
 			'contentType': false,
 			'processData': false,

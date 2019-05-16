@@ -34,8 +34,6 @@ function addProduct() {
 			'active': false,
 			'attributes': prodAttrs
 		}
-		accessToken = localStorage.getItem("access_token");
-		
 		invertButton("addBtn", "Adding...", true);
 		$.ajax({
 			'url' : CREATE_PRODUCT,
@@ -44,7 +42,7 @@ function addProduct() {
 			'data' : JSON.stringify(requestPayload),
 			'dataType' : 'json',
 			'headers' : {
-				'Authorization' : 'bearer ' + accessToken
+				'Authorization' : 'bearer ' + localStorage.getItem("access_token")
 			},
 			'success' : function(result) {
 				$("#error").hide();
