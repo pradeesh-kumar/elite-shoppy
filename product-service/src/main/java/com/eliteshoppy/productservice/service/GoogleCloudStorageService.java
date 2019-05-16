@@ -35,17 +35,6 @@ public class GoogleCloudStorageService implements StorageService {
 		storage = StorageOptions.getDefaultInstance().getService();
 	}
 	
-	static void authExplicit(String jsonPath) throws IOException {
-		GoogleCredentials credentials = GoogleCredentials.fromStream(new FileInputStream(jsonPath))
-				.createScoped(Lists.newArrayList("https://www.googleapis.com/auth/cloud-platform"));
-		Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
-		System.out.println("Buckets:");
-		Page<Bucket> buckets = storage.list();
-		for (Bucket bucket : buckets.iterateAll()) {
-			System.out.println(bucket.toString());
-		}
-	}
-
 	@Override
 	public String store(MultipartFile file) throws StorageException {
 		try {
@@ -64,6 +53,7 @@ public class GoogleCloudStorageService implements StorageService {
 	}
 
 	private String encodeFileName(String fileName) {
+		System.out.println("File Name: " + fileName);
 		return Base64.getEncoder().encodeToString((fileName + LocalDateTime.now().toString()).getBytes())
 				+ Files.getFileExtension(fileName);
 	}
