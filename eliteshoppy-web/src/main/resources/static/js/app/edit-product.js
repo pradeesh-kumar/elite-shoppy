@@ -13,9 +13,9 @@ function uploadImages() {
 	    for(var index = 0; index < imageFiles.length; index++) {
 	        formData.append("productImages", imageFiles[index]);
 	    }
-		formData.append("productId", loadedProduct.id);
+		//formData.append("productId", loadedProduct.id);
 	    $.ajax({
-	    	'url' : UPLOAD_IMAGE,
+	    	'url' : UPLOAD_IMAGE + "?productId=" + loadedProduct.id,
 			'type' : 'POST',
 			'enctype' : 'multipart/form-data',
 			'data' : formData,
@@ -23,7 +23,6 @@ function uploadImages() {
 				'Authorization' : 'bearer ' + localStorage.getItem('access_token')
 			},
 			'processData': false,
-			'contentType': false,
 			'cache': false,
 			'multipart': true,
 			'timeout': 0,
