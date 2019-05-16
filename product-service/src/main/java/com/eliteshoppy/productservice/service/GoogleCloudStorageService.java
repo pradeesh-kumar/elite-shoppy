@@ -33,8 +33,8 @@ public class GoogleCloudStorageService implements StorageService {
 	private String cloudStorageBucketName;
 	@Value("${es.gcloud.cloud-storage.storage-dir}")
 	private String storageDir;
-	@Value("${es.gcloud.cloud-storage.storage-access-key-path}")
-	private static String storageAccessKeyJsonPath;
+	//@Value("${es.gcloud.cloud-storage.storage-access-key-path}")
+	private static String storageAccessKeyJsonPath = "/home/app/src/main/resources/eliteshoppy-storage-access-key.json";
 	
 	private static Storage storage;
 	
