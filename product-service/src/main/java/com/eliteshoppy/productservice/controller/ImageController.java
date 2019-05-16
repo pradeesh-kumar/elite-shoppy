@@ -27,7 +27,7 @@ public class ImageController {
 	private ImageService imageStorageService;
 
 	@PostMapping("/upload")
-	@RolesAllowed({ UserRole.ROLE_ADMIN, UserRole.ROLE_SELLER })
+	//@RolesAllowed({ UserRole.ROLE_ADMIN, UserRole.ROLE_SELLER })
 	public ResponseEntity<List<ProductImage>> uploadFile(
 			@RequestParam("productImages") List<MultipartFile> productImages,
 			@RequestParam("productId") String productId) {
