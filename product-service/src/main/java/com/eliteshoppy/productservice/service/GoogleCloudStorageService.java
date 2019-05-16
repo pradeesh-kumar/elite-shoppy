@@ -1,5 +1,6 @@
 package com.eliteshoppy.productservice.service;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -11,12 +12,16 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.eliteshoppy.productservice.exception.StorageException;
+import com.google.api.gax.paging.Page;
+import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.storage.Acl;
 import com.google.cloud.storage.Acl.Role;
 import com.google.cloud.storage.Acl.User;
 import com.google.cloud.storage.BlobInfo;
+import com.google.cloud.storage.Bucket;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
+import com.google.common.collect.Lists;
 import com.google.common.io.Files;
 
 @Component("storageService")
@@ -33,6 +38,17 @@ public class GoogleCloudStorageService implements StorageService {
 	
 	static {
 		storage = StorageOptions.getDefaultInstance().getService();
+	}
+	
+	static void authExplicit(String jsonPath) throws IOException {
+		GoogleCredentials credentials = GoogleCredentials.fromStream(new FileInputStream(jsonPath))
+				.createScoped(Lists.newArrayList("https://www.googleapis.com/auth/cloud-platform"));
+		Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
+		System.out.println("Buckets:");
+		Page<Bucket> buckets = storage.list();
+		for (Bucket bucket : buckets.iterateAll()) {
+			System.out.println(bucket.toString());
+		}
 	}
 
 	@Override

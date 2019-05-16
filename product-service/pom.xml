@@ -97,6 +97,10 @@
 			<artifactId>google-api-client-appengine</artifactId>
 			<version>1.28.0</version>
 		</dependency>
+		<dependency>
+			<groupId>com.google.cloud</groupId>
+			<artifactId>google-cloud-storage</artifactId>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>
