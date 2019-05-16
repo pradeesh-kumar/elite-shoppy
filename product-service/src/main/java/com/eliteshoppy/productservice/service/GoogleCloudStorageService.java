@@ -46,12 +46,29 @@ public class GoogleCloudStorageService implements StorageService {
 
 	private String uploadFile(MultipartFile file) throws IOException {
 	    String fileName = file.getName();
+	    
+	    // Temporary
+	    fileName = "file.jpg";
+	    
 		String resolvedPath = getResolvedPath(encodeFileName(fileName));
 		
-		BlobInfo blobInfo = storage.create(BlobInfo.newBuilder(cloudStorageBucketName, resolvedPath)
-				.setAcl(new ArrayList<>(Arrays.asList(Acl.of(User.ofAllUsers(), Role.WRITER))))
-				.build(), file.getInputStream());
-		 return blobInfo.getMediaLink();
+		/*
+		 * BlobInfo blobInfo =
+		 * storage.create(BlobInfo.newBuilder(cloudStorageBucketName, resolvedPath)
+		 * .setAcl(new ArrayList<>(Arrays.asList(Acl.of(User.ofAllUsers(),
+		 * Role.WRITER)))) .build(), file.getInputStream());
+		 */
+		
+		BlobInfo blobInfo =
+		        storage.create(
+		            BlobInfo
+		                .newBuilder(cloudStorageBucketName, fileName)
+		                // Modify access list to allow all users with link to read file
+		                .setAcl(new ArrayList<>(Arrays.asList(Acl.of(User.ofAllUsers(), Role.READER))))
+		                .build(),
+		                file.getInputStream());
+		
+		return blobInfo.getMediaLink();
 	}
 
 	private String encodeFileName(String fileName) {
