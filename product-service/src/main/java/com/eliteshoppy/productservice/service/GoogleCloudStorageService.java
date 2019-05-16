@@ -85,14 +85,8 @@ public class GoogleCloudStorageService implements StorageService {
 		 * Role.WRITER)))) .build(), file.getInputStream());
 		 */
 		
-		BlobInfo blobInfo =
-		        storage.create(
-		            BlobInfo
-		                .newBuilder(cloudStorageBucketName, fileName)
-		                // Modify access list to allow all users with link to read file
-		                .setAcl(new ArrayList<>(Arrays.asList(Acl.of(User.ofAllUsers(), Role.READER))))
-		                .build(),
-		                file.getInputStream());
+		BlobInfo blobInfo = storage.create(BlobInfo.newBuilder(cloudStorageBucketName, fileName).build(),
+				file.getInputStream());
 		
 		return blobInfo.getMediaLink();
 	}
