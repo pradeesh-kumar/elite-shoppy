@@ -17,7 +17,8 @@ RUN mvn -f /home/app/pom.xml clean package
 #
 # Package Stage
 #
-FROM openjdk:8
+#FROM openjdk:8
+FROM gcr.io/eliteshoppy/access-key-image:latest
 COPY --from=build /home/app/target/product-service-0.0.1-SNAPSHOT.jar /usr/local/lib/app.jar
 EXPOSE 9090
 ENTRYPOINT ["java", "-jar", "/usr/local/lib/app.jar"]
