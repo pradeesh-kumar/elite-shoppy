@@ -3,7 +3,6 @@ redirectByRole([ "Seller", "Admin" ]);
 var attributes = null;
 var loadedProduct = null;
 
-var c = null;
 function deleteImage(ctr) {
 	confirmationModal("Are you sure you want to delete this image?", function() {
 		var imgId = ctr.parentElement.id.substring(3);
@@ -273,5 +272,4 @@ function loadProductImages() {
 
 $(document).ready(function() {
 	loadAttributes();
-	
 });

@@ -57,7 +57,7 @@ public class ImageController {
 	@DeleteMapping("/{imgId}")
 	@RolesAllowed({UserRole.ROLE_ADMIN, UserRole.ROLE_SELLER})
 	public ResponseEntity<HttpResponse> deleteImage(@PathVariable String imgId) {
-		imageStorageService.deleteById(imgId);
+		//imageStorageService.deleteById(imgId);
 		return new ResponseEntity<>(new SuccessResponse("Image has been deleted."), HttpStatus.OK);
 	}
 }
