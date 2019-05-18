@@ -94,9 +94,9 @@
 .connected-carousels .next-stage {
     display: block;
     position: absolute;
-    top: 0;
+    top: 50px;
     width: 305px;
-    height: 410px;
+    height: 360px;
     color: #fff;
 }
 

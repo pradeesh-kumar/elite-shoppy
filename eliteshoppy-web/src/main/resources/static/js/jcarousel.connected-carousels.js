@@ -1,5 +1,5 @@
-(function($) {
-    // This is the connector function.
+function activateCarousel() {
+	// This is the connector function.
     // It connects one item from the navigation carousel to one item from the
     // stage carousel.
     // The default behaviour is, to connect items with the same index from both
@@ -81,4 +81,9 @@
                 target: '+=1'
             });
     });
+}
+
+/*(function($) {
+    
 })(jQuery);
+*/

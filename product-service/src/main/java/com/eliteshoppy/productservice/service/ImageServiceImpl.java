@@ -3,6 +3,7 @@ package com.eliteshoppy.productservice.service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -69,13 +70,19 @@ public class ImageServiceImpl implements ImageService {
 
 	@Override
 	public void deleteById(String imageId) {
+		ProductImage i = findById(imageId);
+		storageService.delete(i.getPath());
 		imageRepo.deleteById(imageId);
 	}
 
 	@Override
 	public void deleteByProductId(String productId) {
-		// TODO Code to delete images from file system
-		imageRepo.deleteByProductId(productId);
+		List<ProductImage> images = findByProductId(productId);
+		if (!CollectionUtils.isEmpty(images)) {
+			List<String> fileNames = images.stream().map(ProductImage::getPath).collect(Collectors.toList());
+			storageService.deleteMany(fileNames);
+			imageRepo.deleteByProductId(productId);
+		}
 	}
 
 	@Override

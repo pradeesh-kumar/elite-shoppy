@@ -67,3 +67,12 @@ table.with-input .bootstrap-tagsinput, table.with-input input[type='text'] {
     font-size: 14px;
     padding: 9px 20px 10px 32px;
 }
+
+.img-del {
+	position: sticky;
+	float: right;
+	top: 10px;
+	right: 10px;
+	color: #e50b0b;
+	font-size: 25px;
+}
