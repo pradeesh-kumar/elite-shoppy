@@ -7,6 +7,7 @@ var c = null;
 function deleteImage(ctr) {
 	confirmationModal("Are you sure you want to delete this image?", function() {
 		var imgId = ctr.parentElement.id.substring(3);
+		
 		$.ajax({
 			'url' : DELETE_IMAGE + imgId,
 			'type' : 'DELETE',
@@ -45,7 +46,7 @@ function deleteImage(ctr) {
 					$("#imgdltError").removeClass("hide");
 					$("#imgdltSuccess").hide();
 				} else {
-					console.log("Error occured while Loading products! " + response);
+					console.log("Error occured while deleting product!" + response);
 					$("#imgdltError").removeClass("hide");
 					$("#imgdltSuccess").hide();
 				}
