@@ -74,9 +74,7 @@ public class GoogleCloudStorageService implements StorageService {
 
 	@Override
 	public void delete(String fileName) {
-		long blobGeneration = 42;
-		storage.delete(cloudStorageBucketName, getResolvedPath(fileName),
-				BlobSourceOption.generationMatch(blobGeneration));
+		storage.delete(BlobId.of(cloudStorageBucketName, getResolvedPath(fileName)));
 	}
 
 	@Override

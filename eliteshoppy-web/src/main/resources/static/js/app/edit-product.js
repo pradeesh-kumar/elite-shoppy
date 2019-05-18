@@ -10,9 +10,6 @@ function deleteImage(ctr) {
 		$.ajax({
 			'url' : DELETE_IMAGE + imgId,
 			'type' : 'DELETE',
-			'headers' : {
-				'Authorization' : 'bearer ' + localStorage.getItem("access_token")
-			},
 			'success' : function(response) {
 				$("#imgdltSuccess").removeClass("hide");
 				$("#imgdltError").hide();
