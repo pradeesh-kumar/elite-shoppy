@@ -160,7 +160,6 @@ function deleteProduct(ctr) {
 							console.log("Access token successfully obtained from Refresh token: " + response);
 							storeToken(response);
 							fetchPricipalUser();
-							deleteProduct();
 						},
 						'error': function(response) {
 							console.log("Error: " + response);

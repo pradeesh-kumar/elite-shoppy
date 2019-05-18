@@ -180,13 +180,13 @@ function storeToken(result) {
 	accessToken = result.access_token;
 	refreshToken = result.refresh_token;
 	expiresIn = result.expires_in;
+	localStorage.setItem("access_token", accessToken);
+	localStorage.setItem("refresh_token", refreshToken);
+	localStorage.setItem("expires_in", expiresIn);
 	console.log("Login success!");
 	console.log("Token: " + accessToken);
 	console.log("Refresh Token: " + refreshToken);
 	console.log("Expires In: " + expiresIn);
-	localStorage.setItem("access_token", accessToken);
-	localStorage.setItem("refresh_token", refreshToken);
-	localStorage.setItem("expires_in", expiresIn);
 }
 
 function authError(XMLHttpRequest, textStatus, errorThrown) {

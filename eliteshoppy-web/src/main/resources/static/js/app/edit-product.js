@@ -5,52 +5,52 @@ var loadedProduct = null;
 
 var c = null;
 function deleteImage(ctr) {
-	var imgId = ctr.parentElement.id.substring(3);
-	
-	$.ajax({
-		'url' : DELETE_IMAGES + imgId,
-		'type' : 'DELETE',
-		'headers' : {
-			'Authorization' : 'bearer ' + localStorage.getItem("access_token")
-		},
-		'success' : function(response) {
-			$("#imgdltSuccess").removeClass("hide");
-			$("#imgdltError").hide();
-			ctr.parentElement.remove();
-			$("#thb" + imgId).remove();
-			activateCarousel();
-		},
-		'error' : function(response) {
-			/* Unauthenticated */
-			if (response.status == 401) {
-				console.log("Access token has been expired! Trying to login with refresh token...");
-				signinWithRefreshToken(localStorage.refresh_token, {
-					'invalidToken': function(response) {
-						console.log("Refresh token has been expired!");
-						console.log("Logging out the user.");
-						signout();
-					},
-					'success': function(response) {
-						console.log("Access token successfully obtained from Refresh token: " + response);
-						storeToken(response);
-						fetchPricipalUser();
-						deleteImage(ctr);
-					},
-					'error': function(response) {
-						console.log("Error: " + response);
-						$("#imgdltError").removeClass("hide");
-						$("#imgdltSuccess").hide();
-					}
-				});
-			} else if(response.status == 404) {
-				$("#imgdltError").removeClass("hide");
-				$("#imgdltSuccess").hide();
-			} else {
-				console.log("Error occured while Loading products! " + response);
-				$("#imgdltError").removeClass("hide");
-				$("#imgdltSuccess").hide();
+	confirmationModal("Are you sure you want to delete this image?", function() {
+		var imgId = ctr.parentElement.id.substring(3);
+		$.ajax({
+			'url' : DELETE_IMAGE + imgId,
+			'type' : 'DELETE',
+			'headers' : {
+				'Authorization' : 'bearer ' + localStorage.getItem("access_token")
+			},
+			'success' : function(response) {
+				$("#imgdltSuccess").removeClass("hide");
+				$("#imgdltError").hide();
+				ctr.parentElement.remove();
+				$("#thb" + imgId).remove();
+				activateCarousel();
+			},
+			'error' : function(response) {
+				/* Unauthenticated */
+				if (response.status == 401) {
+					console.log("Access token has been expired! Trying to login with refresh token...");
+					signinWithRefreshToken(localStorage.refresh_token, {
+						'invalidToken': function(response) {
+							console.log("Refresh token has been expired!");
+							console.log("Logging out the user.");
+							signout();
+						},
+						'success': function(response) {
+							console.log("Access token successfully obtained from Refresh token: " + response);
+							storeToken(response);
+							fetchPricipalUser();
+						},
+						'error': function(response) {
+							console.log("Error: " + response);
+							$("#imgdltError").removeClass("hide");
+							$("#imgdltSuccess").hide();
+						}
+					});
+				} else if(response.status == 404) {
+					$("#imgdltError").removeClass("hide");
+					$("#imgdltSuccess").hide();
+				} else {
+					console.log("Error occured while Loading products! " + response);
+					$("#imgdltError").removeClass("hide");
+					$("#imgdltSuccess").hide();
+				}
 			}
-		}
+		});
 	});
 }
 
