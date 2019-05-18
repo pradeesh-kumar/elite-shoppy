@@ -14,10 +14,9 @@ import com.eliteshoppy.productservice.repository.ProductRepository;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-	@Autowired
-	private ProductRepository productRepository;
-	@Autowired
-	private OAuthAuthoritiesExtractor authoritiesExtractor;
+	@Autowired private ProductRepository productRepository;
+	@Autowired private OAuthAuthoritiesExtractor authoritiesExtractor;
+	@Autowired private ImageService imageService;
 
 	@Override
 	public Product findById(String productId) {
@@ -46,6 +45,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void delete(String productId) {
 		productRepository.deleteById(productId);
+		imageService.deleteByProductId(productId);
 	}
 
 }
