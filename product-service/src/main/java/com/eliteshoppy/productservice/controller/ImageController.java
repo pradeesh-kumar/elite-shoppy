@@ -3,7 +3,6 @@ package com.eliteshoppy.productservice.controller;
 import java.util.List;
 
 import javax.annotation.security.PermitAll;
-import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.eliteshoppy.eliteshoppycommons.httpresponse.HttpResponse;
 import com.eliteshoppy.eliteshoppycommons.httpresponse.SuccessResponse;
-import com.eliteshoppy.eliteshoppycommons.statics.UserRole;
 import com.eliteshoppy.productservice.model.ProductImage;
 import com.eliteshoppy.productservice.service.ImageService;
 
@@ -35,7 +33,6 @@ public class ImageController {
 
 	@PostMapping("/upload")
 	@PermitAll
-	//@RolesAllowed({ UserRole.ROLE_ADMIN, UserRole.ROLE_SELLER })
 	public ResponseEntity<List<ProductImage>> uploadFile(
 			@RequestParam("productImages") List<MultipartFile> productImages,
 			@RequestParam("productId") String productId) {
@@ -55,9 +52,9 @@ public class ImageController {
     }
 	
 	@DeleteMapping("/{imgId}")
-	@RolesAllowed({UserRole.ROLE_ADMIN, UserRole.ROLE_SELLER})
+	@PermitAll
 	public ResponseEntity<HttpResponse> deleteImage(@PathVariable String imgId) {
-		//imageStorageService.deleteById(imgId);
+		imageStorageService.deleteById(imgId);
 		return new ResponseEntity<>(new SuccessResponse("Image has been deleted."), HttpStatus.OK);
 	}
 }
