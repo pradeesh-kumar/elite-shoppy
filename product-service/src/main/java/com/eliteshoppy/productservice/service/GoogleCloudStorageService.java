@@ -2,6 +2,8 @@ package com.eliteshoppy.productservice.service;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Base64;
 
 import org.apache.commons.io.FilenameUtils;
@@ -10,6 +12,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.eliteshoppy.productservice.exception.StorageException;
+import com.google.cloud.storage.Acl;
+import com.google.cloud.storage.Acl.Role;
+import com.google.cloud.storage.Acl.User;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
@@ -42,7 +47,8 @@ public class GoogleCloudStorageService implements StorageService {
 	private String uploadFile(MultipartFile file) throws IOException {
 		String fileName = encodeFileName(file.getOriginalFilename());
 		String resolvedPath = getResolvedPath(fileName);
-		BlobInfo blobInfo = storage.create(BlobInfo.newBuilder(cloudStorageBucketName, resolvedPath).build(),
+		BlobInfo blobInfo = storage.create(BlobInfo.newBuilder(cloudStorageBucketName, resolvedPath)
+				.setAcl(new ArrayList<>(Arrays.asList(Acl.of(User.ofAllUsers(), Role.READER)))).build(),
 				file.getInputStream());
 		return blobInfo.getMediaLink();
 	}
