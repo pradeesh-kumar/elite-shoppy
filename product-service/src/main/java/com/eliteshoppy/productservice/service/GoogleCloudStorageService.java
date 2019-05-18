@@ -2,8 +2,6 @@ package com.eliteshoppy.productservice.service;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Base64;
 
 import org.apache.commons.io.FilenameUtils;
@@ -12,9 +10,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.eliteshoppy.productservice.exception.StorageException;
-import com.google.cloud.storage.Acl;
-import com.google.cloud.storage.Acl.Role;
-import com.google.cloud.storage.Acl.User;
+import com.google.cloud.storage.Blob;
+import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
@@ -49,17 +46,26 @@ public class GoogleCloudStorageService implements StorageService {
 		String resolvedPath = getResolvedPath(fileName);
 		BlobInfo blobInfo = storage.create(BlobInfo.newBuilder(cloudStorageBucketName, resolvedPath).build(),
 				file.getInputStream());
-		return blobInfo.getMediaLink();
+		return fileName;
 	}
 
 	private String encodeFileName(String fileName) {
-		System.out.println("File Name: " + fileName);
 		return Base64.getEncoder().encodeToString((fileName + LocalDateTime.now().toString()).getBytes())
 				+ "." + FilenameUtils.getExtension(fileName);
 	}
 
 	private String getResolvedPath(String fileName) {
 		return storageDir + FILE_SEPERATOR + fileName;
+	}
+
+	@Override
+	public Blob retrieve(String fileName) throws StorageException {
+		try {
+			Blob blob = storage.get(BlobId.of(cloudStorageBucketName, getResolvedPath(fileName)));
+			return blob;
+		} catch (RuntimeException e) {
+			throw new StorageException("Error occured while reading the file!", e);
+		}
 	}
 
 }

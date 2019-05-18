@@ -1,7 +1,10 @@
 package com.eliteshoppy.productservice.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -15,6 +18,8 @@ import com.eliteshoppy.productservice.exception.ImageNotFoundException;
 import com.eliteshoppy.productservice.exception.StorageException;
 import com.eliteshoppy.productservice.model.ProductImage;
 import com.eliteshoppy.productservice.repository.ProductImageRepository;
+import com.google.cloud.storage.Blob;
+import com.google.cloud.storage.Blob.BlobSourceOption;
 
 @Service
 @RefreshScope
@@ -72,7 +77,17 @@ public class ImageServiceImpl implements ImageService {
 		// TODO Code to delete images from file system
 		imageRepo.deleteByProductId(productId);
 	}
-	
-	
+
+	@Override
+	public void getFile(String fileName, HttpServletResponse response) {
+		try {
+			Blob blob = storageService.retrieve(fileName);
+			response.setContentType(blob.getContentType());
+			response.setContentLengthLong(blob.getSize());
+			response.getOutputStream().write(blob.getContent(BlobSourceOption.generationMatch()));
+		} catch (StorageException |IOException e) {
+			throw new EliteShoppyException("Error occured while reading the image!", e);
+		}
+	}
 
 }
