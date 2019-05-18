@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Base64;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -12,7 +13,6 @@ import com.eliteshoppy.productservice.exception.StorageException;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
-import com.google.common.io.Files;
 
 @Component("storageService")
 public class GoogleCloudStorageService implements StorageService {
@@ -40,7 +40,7 @@ public class GoogleCloudStorageService implements StorageService {
 	}
 
 	private String uploadFile(MultipartFile file) throws IOException {
-		String fileName = encodeFileName(file.getName());
+		String fileName = encodeFileName(file.getOriginalFilename());
 		String resolvedPath = getResolvedPath(fileName);
 		BlobInfo blobInfo = storage.create(BlobInfo.newBuilder(cloudStorageBucketName, resolvedPath).build(),
 				file.getInputStream());
@@ -50,7 +50,7 @@ public class GoogleCloudStorageService implements StorageService {
 	private String encodeFileName(String fileName) {
 		System.out.println("File Name: " + fileName);
 		return Base64.getEncoder().encodeToString((fileName + LocalDateTime.now().toString()).getBytes())
-				+ Files.getFileExtension(fileName);
+				+ "." + FilenameUtils.getExtension(fileName);
 	}
 
 	private String getResolvedPath(String fileName) {
