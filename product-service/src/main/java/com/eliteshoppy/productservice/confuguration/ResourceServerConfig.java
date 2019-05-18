@@ -15,11 +15,9 @@ import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHand
 @EnableGlobalMethodSecurity(prePostEnabled = true, jsr250Enabled = true)
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
-	private static final String RESOURCE_ID = "resource_id";
-
 	@Override
 	public void configure(ResourceServerSecurityConfigurer resources) {
-		resources.resourceId(RESOURCE_ID).stateless(true);
+		resources.stateless(true);
 	}
 
 	@Override
