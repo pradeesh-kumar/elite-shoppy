@@ -44,13 +44,14 @@ public class GoogleCloudStorageService implements StorageService {
 	private String uploadFile(MultipartFile file) throws IOException {
 		String fileName = encodeFileName(file.getOriginalFilename());
 		String resolvedPath = getResolvedPath(fileName);
-		BlobInfo blobInfo = storage.create(BlobInfo.newBuilder(cloudStorageBucketName, resolvedPath).build(),
+		BlobInfo blobInfo = storage.create(BlobInfo.newBuilder(cloudStorageBucketName, resolvedPath)
+				.setContentType(file.getContentType()).build(),
 				file.getInputStream());
 		return fileName;
 	}
 
 	private String encodeFileName(String fileName) {
-		return Base64.getEncoder().encodeToString((fileName + LocalDateTime.now().toString()).getBytes())
+		return Base64.getEncoder().encodeToString((fileName + LocalDateTime.now().toString()).getBytes()).replace("=", "")
 				+ "." + FilenameUtils.getExtension(fileName);
 	}
 
