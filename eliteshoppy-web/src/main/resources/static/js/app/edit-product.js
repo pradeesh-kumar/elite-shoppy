@@ -195,6 +195,22 @@ function loadProduct() {
 				$('#attributes').multiselect('select', a.name);
 			});
 		}
+		loadProductImages();
+	});
+}
+
+function loadProductImages() {
+	var productId = $("#productId").val();
+	$.get(GET_IMAGES + productId, function(response) {
+		if (response.length > 0) {
+			$("#productImages").removeClass("hide");
+			
+			response.forEach(function(i) {
+				var imgPath = DOWNLOAD_IMAGE + i.path;
+				$("#fullImage").append('<li><img src="' + imgPath + '" width="600" height="400" alt=""></li>')
+				$("#thumbnail").append('<li><img src="' + imgPath + '" width="50" height="50" alt=""></li>');
+			});
+		}
 	});
 }
 

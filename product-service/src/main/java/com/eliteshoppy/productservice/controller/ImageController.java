@@ -37,9 +37,15 @@ public class ImageController {
 		return new ResponseEntity<>(imageStorageService.upload(productImages, productId), HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/{fileName}")
+	@GetMapping("/{productId}")
 	@PermitAll
-	public void getImage(@PathVariable("fileName") String fileName, HttpServletResponse response) {
+	public ResponseEntity<List<ProductImage>> getImages(@PathVariable("productId") String productId) {
+        return new ResponseEntity<>(imageStorageService.findByProductId(productId), HttpStatus.OK);
+    }
+	
+	@GetMapping("/download/{fileName}")
+	@PermitAll
+	public void downloadImage(@PathVariable("fileName") String fileName, HttpServletResponse response) {
         imageStorageService.getFile(fileName, response);
     }
 }
