@@ -3,9 +3,7 @@
 	<span id="pageTitle">Elite Shoppy - The greatest shopping destination</span>
 	
 	<div layout:fragment="content">
-		<!-- banner -->
 		<div id="myCarousel" class="carousel slide" data-ride="carousel">
-			<!-- Indicators -->
 			<ol class="carousel-indicators">
 				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
 				<li data-target="#myCarousel" data-slide-to="1" class=""></li>
@@ -70,17 +68,12 @@
 					</div>
 				</div>
 			</div>
-			<a class="left carousel-control" href="#myCarousel" role="button"
-				data-slide="prev"> <span class="glyphicon glyphicon-chevron-left"
-				aria-hidden="true"></span> <span class="sr-only">Previous</span>
-			</a> <a class="right carousel-control" href="#myCarousel" role="button"
-				data-slide="next"> <span
-				class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-				<span class="sr-only">Next</span>
+			<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev"> <span
+				class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> <span class="sr-only">Previous</span>
+			</a> <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next"> <span
+				class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> <span class="sr-only">Next</span>
 			</a>
-			<!-- The Modal -->
 		</div>
-		<!-- //banner -->
 	
 		<div class="banner_bottom_agile_info">
 			<div class="container">
@@ -122,9 +115,7 @@
 					<h3>
 						Save up to <span>50%</span> in this week
 					</h3>
-					<p>Suspendisse varius turpis efficitur erat laoreet dapibus.
-						Mauris sollicitudin scelerisque commodo.Nunc dapibus mauris sed
-						metus finibus posuere.</p>
+					<p>Save up to fifty percent on all the products this week. Buy any products from any category to save the amount.</p>
 					<div class="col-md-4 w3l_schedule_bottom_right_grid1">
 						<i class="fa fa-user-o" aria-hidden="true"></i>
 						<h4>Customers</h4>
@@ -216,6 +207,7 @@
 			<div class="clearfix"></div>
 		</div>
 		<!--/grids-->
+		
 		<!-- /new_arrivals -->
 		<div class="new_arrivals_agile_w3ls_info">
 			<div class="container">
@@ -230,7 +222,7 @@
 						<li>Footwear</li>
 					</ul>
 					<div class="resp-tabs-container">
-						<!--/tab_one-->
+						<!-- Men's -->
 						<div class="tab1">
 							<div class="col-md-3 product-men">
 								<div class="men-pro-item simpleCart_shelfItem">
@@ -239,12 +231,10 @@
 										<img src="images/m1.jpg" alt="" class="pro-image-back">
 										<div class="men-cart-pro">
 											<div class="inner-men-cart-pro">
-												<a th:href="@{single.html}" class="link-product-add-cart">Quick
-													View</a>
+												<a th:href="@{single.html}" class="link-product-add-cart">Quick View</a>
 											</div>
 										</div>
 										<span class="product-new-top">New</span>
-	
 									</div>
 									<div class="item-info-product ">
 										<h4>
@@ -586,8 +576,8 @@
 							</div>
 							<div class="clearfix"></div>
 						</div>
-						<!--//tab_one-->
-						<!--/tab_two-->
+						
+						<!-- Women's -->
 						<div class="tab2">
 							<div class="col-md-3 product-men">
 								<div class="men-pro-item simpleCart_shelfItem">
@@ -943,9 +933,9 @@
 							</div>
 							<div class="clearfix"></div>
 						</div>
-						<!--//tab_two-->
+						
+						<!-- Bags -->
 						<div class="tab3">
-	
 							<div class="col-md-3 product-men">
 								<div class="men-pro-item simpleCart_shelfItem">
 									<div class="men-thumb-item">
@@ -1300,8 +1290,9 @@
 							</div>
 							<div class="clearfix"></div>
 						</div>
+						
+						<!-- Footwears -->
 						<div class="tab4">
-	
 							<div class="col-md-3 product-men">
 								<div class="men-pro-item simpleCart_shelfItem">
 									<div class="men-thumb-item">
@@ -1660,18 +1651,16 @@
 				</div>
 			</div>
 		</div>
-		<!-- //new_arrivals -->
-		<!-- /we-offer -->
+		
+		<!-- we-offer -->
 		<div class="sale-w3ls">
 			<div class="container">
 				<h6>
 					We Offer Flat <span>40%</span> Discount
 				</h6>
-	
 				<a class="hvr-outline-out button2" href="single.html">Shop Now </a>
 			</div>
 		</div>
-		<!-- //we-offer -->
 		
 		<div th:replace="fragments/footer-grid"></div>
 	</div>
