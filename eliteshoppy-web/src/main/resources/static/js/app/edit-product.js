@@ -78,6 +78,7 @@ function uploadImages() {
 				$("#imgUploadError").hide();
 				$("#imgUploadSuccess").removeClass("hide");
 				invertButton("uploadBtn", "Upload", false);
+				addImagesToCourosel(response);
 			},
 			'error': function(response) {
 				$("#imgUploadError").removeClass("hide");
@@ -252,19 +253,25 @@ function loadProductImages() {
 	$.get(GET_IMAGES + productId, function(response) {
 		if (response.length > 0) {
 			$("#productImages").removeClass("hide");
-			
-			response.forEach(function(i) {
-				var imgPath = DOWNLOAD_IMAGE + i.path;
-				var fullImg = '<li id="img' + i.id + '"><img src="' + imgPath + '" width="600" height="400" alt="Product Image" />';
-				fullImg += '<a href="javascript:void(0)" class="img-del" onclick="deleteImage(this)"><b class="glyphicon glyphicon-remove-circle"></b></a>';
-				fullImg += '</li>';
-				
-				$("#fullImage").append(fullImg);
-				$("#thumbnail").append('<li id="thb' + i.id + '"><img src="' + imgPath + '" width="50" height="50" alt="Image Thumb" /></li>');
-			});
-			activateCarousel();
+			addImagesToCourosel(response);
 		}
 	});
+}
+
+function addImagesToCourosel(imgs) {
+	if (imgs.length > 0) {
+		$("#productImages").removeClass("hide");
+		imgs.forEach(function(i) {
+			var imgPath = DOWNLOAD_IMAGE + i.path;
+			var fullImg = '<li id="img' + i.id + '"><img src="' + imgPath + '" width="600" height="400" alt="Product Image" />';
+			fullImg += '<a href="javascript:void(0)" class="img-del" onclick="deleteImage(this)"><b class="glyphicon glyphicon-remove-circle"></b></a>';
+			fullImg += '</li>';
+			
+			$("#fullImage").append(fullImg);
+			$("#thumbnail").append('<li id="thb' + i.id + '"><img src="' + imgPath + '" width="50" height="50" alt="Image Thumb" /></li>');
+		});
+		activateCarousel();
+	}
 }
 
 $(document).ready(function() {
