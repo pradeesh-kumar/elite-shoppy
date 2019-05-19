@@ -1,6 +1,7 @@
 package com.eliteshoppy.productservice.controller;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
@@ -30,12 +31,15 @@ import com.eliteshoppy.productservice.service.AttributeService;
 @Validated
 public class AttributeController {
 
+	private static final Logger logger = Logger.getLogger(AttributeController.class.getName());
+	
 	@Autowired
 	private AttributeService atrService;
 	
 	@GetMapping
 	@PermitAll
 	public ResponseEntity<List<Attribute>> getAll() {
+		logger.info("Retriving all attributes");
 		return new ResponseEntity<>(atrService.findAll(), HttpStatus.OK);
 	}
 	
