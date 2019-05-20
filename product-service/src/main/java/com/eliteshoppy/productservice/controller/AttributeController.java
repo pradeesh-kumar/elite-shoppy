@@ -1,12 +1,12 @@
 package com.eliteshoppy.productservice.controller;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.validation.constraints.NotNull;
 
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +31,7 @@ import com.eliteshoppy.productservice.service.AttributeService;
 @Validated
 public class AttributeController {
 
-	private static final Logger logger = Logger.getLogger(AttributeController.class.getName());
+	private static final Logger logger = Logger.getLogger(AttributeController.class);
 	
 	@Autowired
 	private AttributeService atrService;
