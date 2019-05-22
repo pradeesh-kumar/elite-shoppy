@@ -2,7 +2,10 @@ package com.eliteshoppy.productservice.jms.gateway;
 
 import org.springframework.integration.annotation.MessagingGateway;
 
-@MessagingGateway
-public interface PubsubOutboundGateway {
+import com.eliteshoppy.productservice.model.Product;
 
+@MessagingGateway(defaultRequestChannel = "pubsubOutputChannel")
+public interface PubsubOutboundGateway {
+	
+	void send(Product product);
 }
