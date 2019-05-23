@@ -7,9 +7,9 @@ import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.eliteshoppy.productservice.ProductServiceApplication.PubsubOutboundGateway;
 import com.eliteshoppy.productservice.confuguration.OAuthAuthoritiesExtractor;
 import com.eliteshoppy.productservice.exception.ProductNotFoundException;
+import com.eliteshoppy.productservice.jms.gateway.PubsubOutboundGateway;
 import com.eliteshoppy.productservice.model.Product;
 import com.eliteshoppy.productservice.repository.ProductRepository;
 
