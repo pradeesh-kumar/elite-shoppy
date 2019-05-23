@@ -32,12 +32,13 @@ public class ProductConfiguration {
 				.apis(RequestHandlerSelectors.basePackage("com.eliteshoppy.productservice.controller")).build();
 	}
 
-	@Bean("jacksonPubSubMessageConverter")
-	public JacksonPubSubMessageConverter jacksonPubSubMessageConverter() {
-		ObjectMapper mapper = new ObjectMapper().registerModule(new ParameterNamesModule())
-				.registerModule(new Jdk8Module()).registerModule(new JavaTimeModule());
-		return new JacksonPubSubMessageConverter(mapper);
-	}
+	/*
+	 * @Bean("jacksonPubSubMessageConverter") public JacksonPubSubMessageConverter
+	 * jacksonPubSubMessageConverter() { ObjectMapper mapper = new
+	 * ObjectMapper().registerModule(new ParameterNamesModule()) .registerModule(new
+	 * Jdk8Module()).registerModule(new JavaTimeModule()); return new
+	 * JacksonPubSubMessageConverter(mapper); }
+	 */
 
 	@Bean
 	@ServiceActivator(inputChannel = "pubsubOutputChannel")

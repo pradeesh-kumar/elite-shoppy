@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.integration.annotation.MessagingGateway;
 
 import com.eliteshoppy.productservice.model.Product;
@@ -24,7 +23,6 @@ public class ProductServiceApplication {
 	}
 	
 	@MessagingGateway(defaultRequestChannel = "pubsubOutputChannel")
-	@DependsOn("jacksonPubSubMessageConverter")
 	public interface PubsubOutboundGateway {
 		void publish(Product product);
 	}
