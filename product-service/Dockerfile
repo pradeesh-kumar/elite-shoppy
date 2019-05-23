@@ -18,8 +18,7 @@ RUN mvn -f /home/app/pom.xml clean package
 # Package Stage
 #
 #FROM openjdk:8
-FROM gcr.io/eliteshoppy/access-key-image@sha256:32bbf79a136eb401af87ea0e189807ce84776542617efcc060e58dca98c492c7
-ENV GOOGLE_CLOUD_PROJECT=eliteshoppy
+FROM gcr.io/eliteshoppy/access-key-image@sha256:e97f0b75faa54f0ebbdb0e4918efce402d1f1809b265310b7193e0e8ce329c2b
 COPY --from=build /home/app/target/product-service-0.0.1-SNAPSHOT.jar /usr/local/lib/app.jar
 EXPOSE 9090
 ENTRYPOINT ["java", "-jar", "/usr/local/lib/app.jar"]
