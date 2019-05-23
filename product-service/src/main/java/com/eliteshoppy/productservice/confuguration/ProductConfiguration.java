@@ -1,6 +1,7 @@
 package com.eliteshoppy.productservice.confuguration;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.gcp.pubsub.core.PubSubTemplate;
 import org.springframework.cloud.gcp.pubsub.integration.outbound.PubSubMessageHandler;
 import org.springframework.cloud.gcp.pubsub.support.converter.JacksonPubSubMessageConverter;
@@ -19,6 +20,7 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
 @Configuration
+@RefreshScope
 public class ProductConfiguration {
 
 	@Value("${es.jms.topic.product-create}")
