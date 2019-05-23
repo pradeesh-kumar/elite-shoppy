@@ -33,14 +33,9 @@ public class ProductConfiguration {
 	}
 
 	@Bean
-	public ObjectMapper jsonObjectMapper() {
+	public JacksonPubSubMessageConverter jacksonPubSubMessageConverter() {
 		ObjectMapper mapper = new ObjectMapper().registerModule(new ParameterNamesModule())
 				.registerModule(new Jdk8Module()).registerModule(new JavaTimeModule());
-		return mapper;
-	}
-
-	@Bean
-	public JacksonPubSubMessageConverter jacksonPubSubMessageConverter(ObjectMapper mapper) {
 		return new JacksonPubSubMessageConverter(mapper);
 	}
 
