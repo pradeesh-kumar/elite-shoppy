@@ -1,5 +1,6 @@
 package com.eliteshoppy.productservice.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -12,7 +13,7 @@ import lombok.Data;
 
 @Data @AllArgsConstructor
 @Document(collection = "product_collection")
-public class Product {
+public class Product implements Serializable {
 
 	@Id
 	private String id;
