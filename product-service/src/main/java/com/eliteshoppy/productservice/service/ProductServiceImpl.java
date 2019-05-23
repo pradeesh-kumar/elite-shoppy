@@ -26,7 +26,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Product findById(String productId) {
 		return productRepository.findById(productId).orElseThrow(
-				() -> new ProductNotFoundException(String.format("Product for the id %d is not available", productId)));
+				() -> new ProductNotFoundException(String.format("Product for the id %s is not available", productId)));
 	}
 	
 	@Override

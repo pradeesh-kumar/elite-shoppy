@@ -60,7 +60,7 @@ public class ImageServiceImpl implements ImageService {
 	@Override
 	public ProductImage findById(String imageId) {
 		return imageRepo.findById(imageId).orElseThrow(
-				() -> new ImageNotFoundException(String.format("Image for the id %d is not available", imageId)));
+				() -> new ImageNotFoundException(String.format("Image for the id %s is not available", imageId)));
 	}
 
 	@Override

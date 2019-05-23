@@ -31,7 +31,7 @@ function confirmationModal(modalText, confirmFunction) {
 	$('#confirmModal').modal({
 		backdrop : 'static',
 		keyboard : false
-	}).on('click', '#modalConfirmBtn', function(e) {
+	}).off('click', '#modalConfirmBtn').on('click', '#modalConfirmBtn', function(e) {
 		confirmFunction();
 	});
 }

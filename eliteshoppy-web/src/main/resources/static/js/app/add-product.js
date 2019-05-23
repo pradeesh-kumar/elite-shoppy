@@ -63,7 +63,6 @@ function addProduct() {
 							console.log("Access token successfully obtained from Refresh token: " + response);
 							storeToken(response);
 							fetchPricipalUser();
-							addProduct();
 						},
 						'error': function(response) {
 							console.log("Error: " + response);
