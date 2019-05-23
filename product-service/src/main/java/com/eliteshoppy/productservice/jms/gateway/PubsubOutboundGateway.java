@@ -7,5 +7,5 @@ import com.eliteshoppy.productservice.model.Product;
 @MessagingGateway(defaultRequestChannel = "pubsubOutputChannel")
 public interface PubsubOutboundGateway {
 	
-	void send(Product product);
+	void publish(Product product);
 }

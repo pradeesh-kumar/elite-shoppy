@@ -41,7 +41,7 @@ public class ProductServiceImpl implements ProductService {
 		logger.info("Inserting product into mongodb: " + product);
 		product = productRepository.insert(product);
 		logger.info("Product has been inserted");
-		messagingGateway.send(product);
+		messagingGateway.publish(product);
 		logger.info("ProductCreated event has been pushed to JMS");
 		return product;
 	}
