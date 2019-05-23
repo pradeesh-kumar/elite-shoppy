@@ -23,29 +23,24 @@ public class ProductConfiguration {
 
 	@Value("${es.jms.topic.product-create}")
 	private String productCreateTopicName;
-	
+
 	@Bean
 	public Docket productApi() {
 		return new Docket(DocumentationType.SWAGGER_2).select()
 				.apis(RequestHandlerSelectors.basePackage("com.eliteshoppy.productservice.controller")).build();
 	}
-	
+
+	@Bean
+	public JacksonPubSubMessageConverter jacksonPubSubMessageConverter() {
+		ObjectMapper mapper = new ObjectMapper().registerModule(new ParameterNamesModule())
+				.registerModule(new Jdk8Module()).registerModule(new JavaTimeModule());
+		return new JacksonPubSubMessageConverter(mapper);
+	}
+
 	@Bean
 	@ServiceActivator(inputChannel = "pubsubOutputChannel")
 	public MessageHandler messageHandler(PubSubTemplate pubsubTemplate) {
 		return new PubSubMessageHandler(pubsubTemplate, productCreateTopicName);
 	}
-	
-	@Bean
-	public ObjectMapper jsonMapper() {
-		ObjectMapper mapper = new ObjectMapper().registerModule(new ParameterNamesModule())
-				.registerModule(new Jdk8Module()).registerModule(new JavaTimeModule());
-		return mapper;
-	}
-	
-	@Bean
-	public JacksonPubSubMessageConverter jacksonPubSubMessageConverter(ObjectMapper objectMapper) {
-	    return new JacksonPubSubMessageConverter(objectMapper);
-	}
-	
+
 }
