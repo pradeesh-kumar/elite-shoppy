@@ -23,7 +23,6 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
 @Configuration
-@RefreshScope
 public class ProductConfiguration {
 
 	@Value("${es.jms.topic.product-create}")
