@@ -7,9 +7,12 @@ import org.springframework.cloud.gcp.pubsub.integration.outbound.PubSubMessageHa
 import org.springframework.cloud.gcp.pubsub.support.converter.JacksonPubSubMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.integration.annotation.MessagingGateway;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.messaging.MessageHandler;
+import org.springframework.stereotype.Component;
 
+import com.eliteshoppy.productservice.model.Product;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -30,6 +33,13 @@ public class ProductConfiguration {
 	public Docket productApi() {
 		return new Docket(DocumentationType.SWAGGER_2).select()
 				.apis(RequestHandlerSelectors.basePackage("com.eliteshoppy.productservice.controller")).build();
+	}
+
+	@MessagingGateway(defaultRequestChannel = "pubsubOutputChannel")
+	@Component
+	public interface PubsubOutboundGateway {
+
+		void publish(Product product);
 	}
 
 	@Bean("jacksonPubSubMessageConverter")
