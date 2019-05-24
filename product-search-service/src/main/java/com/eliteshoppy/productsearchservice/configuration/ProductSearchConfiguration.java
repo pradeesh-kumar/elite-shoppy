@@ -1,6 +1,5 @@
 package com.eliteshoppy.productsearchservice.configuration;
 
-import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gcp.pubsub.core.PubSubTemplate;
@@ -18,8 +17,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Configuration
 public class ProductSearchConfiguration {
 	
-	private static final Logger logger = Logger.getLogger(ProductSearchConfiguration.class);
-
 	@Value("${es.jms.topic.subscriber.product-create}")
 	private String productCreateSubscriberName;
 	@Value("${es.jms.topic.subscriber.product-update}")
@@ -44,6 +41,26 @@ public class ProductSearchConfiguration {
 		adapter.setOutputChannel(inputChannel);
 		adapter.setAckMode(AckMode.MANUAL);
 		adapter.setPayloadType(Product.class);
+		return adapter;
+	}
+	
+	@Bean
+	public PubSubInboundChannelAdapter productUpdateMessageChannelAdapter(
+			@Qualifier("pubSubProductUpdateInputChannel") MessageChannel inputChannel, PubSubTemplate pubSubTemplate) {
+		PubSubInboundChannelAdapter adapter = new PubSubInboundChannelAdapter(pubSubTemplate, productUpdateSubscriberName);
+		adapter.setOutputChannel(inputChannel);
+		adapter.setAckMode(AckMode.MANUAL);
+		adapter.setPayloadType(Product.class);
+		return adapter;
+	}
+	
+	@Bean
+	public PubSubInboundChannelAdapter productDeleteMessageChannelAdapter(
+			@Qualifier("pubSubProductDeleteInputChannel") MessageChannel inputChannel, PubSubTemplate pubSubTemplate) {
+		PubSubInboundChannelAdapter adapter = new PubSubInboundChannelAdapter(pubSubTemplate, productDeleteSubscriberName);
+		adapter.setOutputChannel(inputChannel);
+		adapter.setAckMode(AckMode.MANUAL);
+		adapter.setPayloadType(String.class);
 		return adapter;
 	}
 
