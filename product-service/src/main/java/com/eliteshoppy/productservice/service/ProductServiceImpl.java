@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.eliteshoppy.productservice.confuguration.OAuthAuthoritiesExtractor;
+import com.eliteshoppy.productservice.confuguration.ProductConfiguration.PubSubProductGateway;
 import com.eliteshoppy.productservice.exception.ProductNotFoundException;
 import com.eliteshoppy.productservice.model.Product;
 import com.eliteshoppy.productservice.repository.ProductRepository;
@@ -20,6 +21,7 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired private ProductRepository productRepository;
 	@Autowired private OAuthAuthoritiesExtractor authoritiesExtractor;
 	@Autowired private ImageService imageService;
+	@Autowired private PubSubProductGateway messageGateway;
 
 	@Override
 	public Product findById(String productId) {
@@ -39,7 +41,7 @@ public class ProductServiceImpl implements ProductService {
 		logger.info("Inserting product into mongodb: " + product);
 		product = productRepository.insert(product);
 		logger.info("Product has been inserted");
-		//messagingGateway.publish(product);
+		messageGateway.publish(product);
 		logger.info("ProductCreated event has been pushed to JMS");
 		return product;
 	}
