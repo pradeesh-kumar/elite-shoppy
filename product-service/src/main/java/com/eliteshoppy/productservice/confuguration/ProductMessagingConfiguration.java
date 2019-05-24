@@ -18,6 +18,10 @@ public class ProductMessagingConfiguration {
 	
 	@Value("${es.jms.topic.product-create}")
 	private String productCreateTopicName;
+	@Value("${es.jms.topic.product-update}")
+	private String productUpdateTopicName;
+	@Value("${es.jms.topic.product-delete}")
+	private String productDeleteTopicName;
 
 	@Bean
 	public JacksonPubSubMessageConverter jacksonPubSubMessageConverter(ObjectMapper objectMapper) {
@@ -25,14 +29,38 @@ public class ProductMessagingConfiguration {
 	}
 	
 	@Bean
-	@ServiceActivator(inputChannel = "pubSubOutputChannel")
-	public MessageHandler messageSender(PubSubTemplate pubSubTemplate) {
+	@ServiceActivator(inputChannel = "pubSubProductCreateOutputChannel")
+	public MessageHandler productCreateMessageSender(PubSubTemplate pubSubTemplate) {
 		PubSubMessageHandler adapter = new PubSubMessageHandler(pubSubTemplate, productCreateTopicName);
 		return adapter;
 	}
+	
+	@Bean
+	@ServiceActivator(inputChannel = "pubSubProductUpdateOutputChannel")
+	public MessageHandler productUpdateMessageSender(PubSubTemplate pubSubTemplate) {
+		PubSubMessageHandler adapter = new PubSubMessageHandler(pubSubTemplate, productUpdateTopicName);
+		return adapter;
+	}
+	
+	@Bean
+	@ServiceActivator(inputChannel = "pubSubProductDeleteOutputChannel")
+	public MessageHandler productDeleteMessageSender(PubSubTemplate pubSubTemplate) {
+		PubSubMessageHandler adapter = new PubSubMessageHandler(pubSubTemplate, productDeleteTopicName);
+		return adapter;
+	}
 
-	@MessagingGateway(defaultRequestChannel = "pubSubOutputChannel")
-	public interface PubSubProductGateway {
+	@MessagingGateway(defaultRequestChannel = "pubSubProductCreateOutputChannel")
+	public interface PubSubProductCreateGateway {
 		void publish(Product product);
+	}
+	
+	@MessagingGateway(defaultRequestChannel = "pubSubProductUpdateOutputChannel")
+	public interface PubSubProductUpdateGateway {
+		void publish(Product product);
+	}
+	
+	@MessagingGateway(defaultRequestChannel = "pubSubProductDeleteOutputChannel")
+	public interface PubSubProductDeleteGateway {
+		void publish(String productId);
 	}
 }
