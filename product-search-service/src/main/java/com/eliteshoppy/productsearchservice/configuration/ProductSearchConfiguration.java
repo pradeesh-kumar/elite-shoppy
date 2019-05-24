@@ -6,15 +6,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gcp.pubsub.core.PubSubTemplate;
 import org.springframework.cloud.gcp.pubsub.integration.AckMode;
 import org.springframework.cloud.gcp.pubsub.integration.inbound.PubSubInboundChannelAdapter;
-import org.springframework.cloud.gcp.pubsub.support.BasicAcknowledgeablePubsubMessage;
-import org.springframework.cloud.gcp.pubsub.support.GcpPubSubHeaders;
 import org.springframework.cloud.gcp.pubsub.support.converter.JacksonPubSubMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.integration.channel.DirectChannel;
 import org.springframework.messaging.MessageChannel;
-import org.springframework.messaging.handler.annotation.Header;
 
 import com.eliteshoppy.productsearchservice.model.Product;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -49,16 +45,6 @@ public class ProductSearchConfiguration {
 		adapter.setAckMode(AckMode.MANUAL);
 		adapter.setPayloadType(Product.class);
 		return adapter;
-	}
-
-	@ServiceActivator(inputChannel = "pubSubProductCreateInputChannel")
-	public void productCreateMessageReceiver(Product payload,
-			@Header(GcpPubSubHeaders.ORIGINAL_MESSAGE) BasicAcknowledgeablePubsubMessage message) {
-		logger.info("Product Created Event Message arrived! Payload: " + payload);
-		
-		// Process
-		
-		message.ack();
 	}
 
 }
