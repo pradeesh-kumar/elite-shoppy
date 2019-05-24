@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.annotation.MessagingGateway;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.messaging.MessageHandler;
-import org.springframework.stereotype.Component;
 
 import com.eliteshoppy.productservice.model.Product;
 import com.fasterxml.jackson.databind.ObjectMapper;
