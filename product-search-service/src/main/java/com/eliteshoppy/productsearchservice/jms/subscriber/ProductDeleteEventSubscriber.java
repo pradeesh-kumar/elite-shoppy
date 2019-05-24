@@ -18,8 +18,8 @@ public class ProductDeleteEventSubscriber {
 	@Autowired
 	private ProductService productService;
 
-	@ServiceActivator(inputChannel = "pubSubProductUpdateInputChannel")
-	public void productUpdateMessageReceiver(String productId,
+	@ServiceActivator(inputChannel = "pubSubProductDeleteInputChannel")
+	public void productDeleteMessageReceiver(String productId,
 			@Header(GcpPubSubHeaders.ORIGINAL_MESSAGE) BasicAcknowledgeablePubsubMessage message) {
 		logger.info("Product Delete Event Message arrived! ProductId: " + productId);
 		logger.info("Deleting the product from ElasticSearch");
