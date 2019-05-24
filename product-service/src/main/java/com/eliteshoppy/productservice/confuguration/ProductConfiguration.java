@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.annotation.MessagingGateway;
 import org.springframework.integration.annotation.ServiceActivator;
+import org.springframework.integration.channel.DirectChannel;
 import org.springframework.messaging.MessageHandler;
 
 import com.eliteshoppy.productservice.model.Product;
@@ -40,15 +41,19 @@ public class ProductConfiguration {
 	}
 
 	@Bean
-	@ServiceActivator(inputChannel = "pubsubOutputChannel")
-	public MessageHandler messageSender(PubSubTemplate pubsubTemplate) {
-		return new PubSubMessageHandler(pubsubTemplate, productCreateTopicName);
+	public DirectChannel pubSubOutputChannel() {
+		return new DirectChannel();
 	}
 
-	@MessagingGateway(defaultRequestChannel = "pubsubOutputChannel")
-	public interface PubsubOutboundGateway {
-		void sendToPubsub(String text);
+	@Bean
+	@ServiceActivator(inputChannel = "pubSubOutputChannel")
+	public MessageHandler messageSender(PubSubTemplate pubSubTemplate) {
+		PubSubMessageHandler adapter = new PubSubMessageHandler(pubSubTemplate, productCreateTopicName);
+		return adapter;
+	}
 
+	@MessagingGateway(defaultRequestChannel = "pubSubOutputChannel")
+	public interface PubSubProductGateway {
 		void publish(Product product);
 	}
 
