@@ -33,13 +33,6 @@ public class ProductConfiguration {
 				.apis(RequestHandlerSelectors.basePackage("com.eliteshoppy.productservice.controller")).build();
 	}
 
-	@MessagingGateway(defaultRequestChannel = "pubsubOutputChannel")
-	@Component
-	public interface PubsubOutboundGateway {
-
-		void publish(Product product);
-	}
-
 	@Bean("jacksonPubSubMessageConverter")
 	public JacksonPubSubMessageConverter jacksonPubSubMessageConverter() {
 		ObjectMapper mapper = new ObjectMapper().registerModule(new ParameterNamesModule())
@@ -49,8 +42,15 @@ public class ProductConfiguration {
 
 	@Bean
 	@ServiceActivator(inputChannel = "pubsubOutputChannel")
-	public MessageHandler messageHandler(PubSubTemplate pubsubTemplate) {
+	public MessageHandler messageSender(PubSubTemplate pubsubTemplate) {
 		return new PubSubMessageHandler(pubsubTemplate, productCreateTopicName);
+	}
+
+	@MessagingGateway(defaultRequestChannel = "pubsubOutputChannel")
+	public interface PubsubOutboundGateway {
+		void sendToPubsub(String text);
+
+		void publish(Product product);
 	}
 
 }
