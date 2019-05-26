@@ -25,7 +25,7 @@ var GET_IMAGES = API_URL + "/product-service/image/";
 var DELETE_IMAGE = API_URL + "/product-service/image/";
 
 /* Search URLS */
-var NEW_ARRIVALS = API_URL + "/product-search-service/search/new-arrivals";
+var NEW_ARRIVALS = API_URL + "/product-search-service/search/new-arrivals/";
 
 /* Error Messages */
 var ERROR_MSG_SIGNIN = "Something went wrong while signing in! Please try again later.";

@@ -16,7 +16,7 @@ public class SearchServiceImpl implements SearchService {
 
 	@Override
 	public List<Product> newArrivals(String category) {
-		return productRepo.findByIdealForOrCategory(category);
+		return productRepo.findByIdealForOrCategory(category, category);
 	}
 
 }
