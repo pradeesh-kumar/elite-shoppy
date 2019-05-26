@@ -28,7 +28,7 @@ public class ElasticSearchObjectMapperConfiguration {
 
 	@Bean
 	@Primary
-	public ElasticsearchOperations elasticsearchTemplate(Client client,
+	public ElasticsearchOperations elasticsearchTemplateNew(Client client,
 			final ElasticsearchConverter elasticsearchConverter,
 			final SimpleElasticsearchMappingContext simpleElasticsearchMappingContext, EntityMapper mapper) {
 		return new ElasticsearchTemplate(client, elasticsearchConverter,
