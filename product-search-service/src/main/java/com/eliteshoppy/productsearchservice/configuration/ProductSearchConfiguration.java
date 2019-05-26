@@ -13,8 +13,6 @@ import org.springframework.messaging.MessageChannel;
 
 import com.eliteshoppy.productsearchservice.model.Product;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 @Configuration
 public class ProductSearchConfiguration {
@@ -25,13 +23,6 @@ public class ProductSearchConfiguration {
 	private String productUpdateSubscriberName;
 	@Value("${es.jms.topic.subscriber.product-delete}")
 	private String productDeleteSubscriberName;
-
-	@Bean ObjectMapper objectMapper() {
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.registerModule(new JavaTimeModule());
-		mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-		return mapper;
-	}
 	
 	@Bean
 	public JacksonPubSubMessageConverter jacksonPubSubMessageConverter(ObjectMapper objectMapper) {
