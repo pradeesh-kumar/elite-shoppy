@@ -1,12 +1,15 @@
 function loadNewArrivals(category) {
-	
+	$.get(NEW_ARRIVALS, function(response) {
+		console.log("New arrivals found");
+		console.log(response);
+	})
 }
 
 function loadNewArrivals() {
-	loadNewArrivals('men');
-	loadNewArrivals('women');
-	loadNewArrivals('bag');
-	loadNewArrivals('footwear');
+	loadNewArrivals('Men');
+	loadNewArrivals('Women');
+	loadNewArrivals('Bag');
+	loadNewArrivals('Footwear');
 }
 
 $(document).ready(function() {
