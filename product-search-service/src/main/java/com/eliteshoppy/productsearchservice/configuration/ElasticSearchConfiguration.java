@@ -31,15 +31,6 @@ public class ElasticSearchConfiguration {
 			this.objectMapper = objectMapper;
 		}
 
-		/*
-		 * public CustomEntityMapper() { objectMapper = new ObjectMapper();
-		 * objectMapper.registerModule(new CustomGeoModule());
-		 * objectMapper.registerModule(new JavaTimeModule());
-		 * objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true);
-		 * objectMapper.configure(DeserializationFeature.
-		 * READ_DATE_TIMESTAMPS_AS_NANOSECONDS, false); }
-		 */
-
 		@Override
 		public String mapToString(Object object) throws IOException {
 			return objectMapper.writeValueAsString(object);

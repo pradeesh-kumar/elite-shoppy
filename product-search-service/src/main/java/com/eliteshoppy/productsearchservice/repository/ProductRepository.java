@@ -8,5 +8,6 @@ import com.eliteshoppy.productsearchservice.model.Product;
 
 public interface ProductRepository extends ElasticsearchRepository<Product, String> {
 	
-	List<Product> findByIdealForOrCategory(String ideal, String category);
+	List<Product> findByIdealFor(String idealFor);
+	List<Product> findByCategory(String category);
 }
