@@ -45,6 +45,12 @@ public class ImageController {
         return new ResponseEntity<>(imageStorageService.findByProductId(productId), HttpStatus.OK);
     }
 	
+	@GetMapping("/any/{productId}")
+	@PermitAll
+	public ResponseEntity<ProductImage> findAny(@PathVariable("productId") String productId) {
+        return new ResponseEntity<>(imageStorageService.findOneByProductId(productId), HttpStatus.OK);
+    }
+	
 	@GetMapping("/download/{fileName}")
 	@PermitAll
 	public void downloadImage(@PathVariable("fileName") String fileName, HttpServletResponse response) {

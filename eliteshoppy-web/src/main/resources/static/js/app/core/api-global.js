@@ -22,6 +22,7 @@ var DELETE_ATTRIBUTE = API_URL + "/product-service/attribute/";
 var UPLOAD_IMAGE = API_URL + "/product-service/image/upload";
 var DOWNLOAD_IMAGE = API_URL + "/product-service/image/download/";
 var GET_IMAGES = API_URL + "/product-service/image/";
+var GET_ANY_IMAGE = API_URL + "/product-service/image/any/";
 var DELETE_IMAGE = API_URL + "/product-service/image/";
 
 /* Search URLS */

@@ -3,6 +3,7 @@ package com.eliteshoppy.productservice.service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletResponse;
@@ -31,7 +32,7 @@ public class ImageServiceImpl implements ImageService {
 	private ProductImageRepository imageRepo;
 	@Autowired
 	private StorageService storageService;
-	
+
 	@Override
 	public List<ProductImage> upload(List<MultipartFile> imageFiles, String productId) {
 		List<ProductImage> images = new ArrayList<>();
@@ -43,7 +44,7 @@ public class ImageServiceImpl implements ImageService {
 		});
 		return images;
 	}
-	
+
 	private ProductImage upload(MultipartFile imageFile, String productId) {
 		ProductImage productImage = new ProductImage();
 		try {
@@ -56,7 +57,7 @@ public class ImageServiceImpl implements ImageService {
 		}
 		return productImage;
 	}
-	
+
 	@Override
 	public ProductImage findById(String imageId) {
 		return imageRepo.findById(imageId).orElseThrow(
@@ -65,7 +66,8 @@ public class ImageServiceImpl implements ImageService {
 
 	@Override
 	public List<ProductImage> findByProductId(String productId) {
-		return imageRepo.findByProductId(productId).orElseThrow(() -> new ImageNotFoundException("Product doesn't have any images"));
+		return imageRepo.findByProductId(productId)
+				.orElseThrow(() -> new ImageNotFoundException("Product doesn't have any images"));
 	}
 
 	@Override
@@ -92,8 +94,18 @@ public class ImageServiceImpl implements ImageService {
 			response.setContentType(blob.getContentType());
 			response.setContentLengthLong(blob.getSize());
 			response.getOutputStream().write(blob.getContent(BlobSourceOption.generationMatch()));
-		} catch (StorageException |IOException e) {
+		} catch (StorageException | IOException e) {
 			throw new EliteShoppyException("Error occured while reading the image!", e);
+		}
+	}
+
+	@Override
+	public ProductImage findOneByProductId(String productId) {
+		Optional<List<ProductImage>> imgList = imageRepo.findByProductId(productId);
+		if (imgList.isPresent()) {
+			return imgList.get().stream().findAny().get();
+		} else {
+			throw new ImageNotFoundException("Image not found for product " + productId);
 		}
 	}
 

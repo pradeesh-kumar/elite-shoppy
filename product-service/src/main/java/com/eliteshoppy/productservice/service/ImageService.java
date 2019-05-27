@@ -16,4 +16,5 @@ public interface ImageService {
 	void deleteById(String imageId);
 	void deleteByProductId(String productId);
 	List<ProductImage> upload(List<MultipartFile> imageFiles, String productId);
+	ProductImage findOneByProductId(String productId);
 }
