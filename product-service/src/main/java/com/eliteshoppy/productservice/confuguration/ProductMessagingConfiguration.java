@@ -1,5 +1,6 @@
 package com.eliteshoppy.productservice.confuguration;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gcp.pubsub.core.PubSubTemplate;
 import org.springframework.cloud.gcp.pubsub.integration.outbound.PubSubMessageHandler;
@@ -24,7 +25,7 @@ public class ProductMessagingConfiguration {
 	private String productDeleteTopicName;
 
 	@Bean
-	public JacksonPubSubMessageConverter jacksonPubSubMessageConverter(ObjectMapper objectMapper) {
+	public JacksonPubSubMessageConverter jacksonPubSubMessageConverter(@Qualifier("objectMapper") ObjectMapper objectMapper) {
 		return new JacksonPubSubMessageConverter(objectMapper);
 	}
 	

@@ -1,7 +1,5 @@
 package com.eliteshoppy.productsearchservice.configuration;
 
-import java.time.LocalDateTime;
-
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gcp.pubsub.core.PubSubTemplate;
@@ -10,15 +8,11 @@ import org.springframework.cloud.gcp.pubsub.integration.inbound.PubSubInboundCha
 import org.springframework.cloud.gcp.pubsub.support.converter.JacksonPubSubMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.integration.channel.DirectChannel;
 import org.springframework.messaging.MessageChannel;
 
-import com.eliteshoppy.productsearchservice.model.LocalDateTimeDeserializer;
-import com.eliteshoppy.productsearchservice.model.LocalDateTimeSerializer;
 import com.eliteshoppy.productsearchservice.model.Product;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 @Configuration
 public class ProductSearchConfiguration {
