@@ -73,14 +73,4 @@ public class ProductSearchConfiguration {
 		return adapter;
 	}
 
-	@Bean
-	@Primary
-	public ObjectMapper serializingObjectMapper() {
-		ObjectMapper objectMapper = new ObjectMapper();
-		JavaTimeModule javaTimeModule = new JavaTimeModule();
-		javaTimeModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer());
-		javaTimeModule.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
-		objectMapper.registerModule(javaTimeModule);
-		return objectMapper;
-	}
 }
