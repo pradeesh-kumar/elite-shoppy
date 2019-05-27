@@ -1,7 +1,7 @@
 function addItem(item, containerIndex) {
 	/* Load item image */
 	$.get(GET_ANY_IMAGE + item.id, function(response) {
-		imgUrl = DOWNLOAD_IMAGE + response.id;
+		imgUrl = DOWNLOAD_IMAGE + response.path;
 		
 		var itemData = '<div class="col-md-3 product-men">';
 		itemData += '<div class="men-pro-item simpleCart_shelfItem">';
@@ -12,7 +12,7 @@ function addItem(item, containerIndex) {
 		
 		itemData += '<div class="men-cart-pro">';
 		itemData += '<div class="inner-men-cart-pro">';
-		itemData += '<a th:href="@{single.html}" class="link-product-add-cart">Quick View</a></div></div>';
+		itemData += '<a href="/single.html?productId=' + item.id + '" class="link-product-add-cart">Quick View</a></div></div>';
 		itemData += '<span class="product-new-top">New</span></div>';
 		itemData += '<div class="item-info-product ">';
 		
@@ -46,7 +46,7 @@ function loadNewArrival(category) {
 		$("#newArrival" + category).empty();
 		var counter = 0;
 		response.forEach(function(item) {
-			if (counter > 8) {
+			if (counter > 7) {
 				return;
 			}
 			addItem(item, category);

@@ -1717,6 +1717,7 @@ button.w3view-cart {
 
 .men-thumb-item img {
 	transition: all 0.5s ease-out 0s;
+	height: 249px;
 }
 
 .pro-image-back {

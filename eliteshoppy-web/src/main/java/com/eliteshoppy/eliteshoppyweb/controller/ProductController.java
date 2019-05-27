@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ProductController {
 
 	@GetMapping({"product.html"})
-	public String product(ModelMap model) {
+	public String product() {
 		return "product";
 	}
 	
 	@GetMapping({"add-product.html"})
-	public String addProduct(ModelMap model) {
+	public String addProduct() {
 		return "add-product";
 	}
 	
@@ -24,7 +24,13 @@ public class ProductController {
 	}
 	
 	@GetMapping({"attribute.html"})
-	public String attribute(ModelMap model) {
+	public String attribute() {
 		return "attribute";
+	}
+	
+	@GetMapping({"single.html"})
+	public String single(ModelMap model, String productId) {
+		model.addAttribute("productId", productId);
+		return "single";
 	}
 }

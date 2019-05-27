@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController {
 	
 	@GetMapping({"/", "index.html"})
-	public String home(ModelMap model) {
+	public String home() {
 		return "index";
 	}
 	
@@ -27,8 +27,4 @@ public class HomeController {
 		return "mens";
 	}
 	
-	@GetMapping({"single.html"})
-	public String single() {
-		return "single";
-	}
 }
