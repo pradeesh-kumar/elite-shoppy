@@ -1,12 +1,15 @@
 function addItem(item, containerIndex) {
 	/* Load item image */
-	$(GET_ANY_IMAGE + item.id, function(response) {
+	$.get(GET_ANY_IMAGE + item.id, function(response) {
 		imgUrl = DOWNLOAD_IMAGE + response.id;
 		
 		var itemData = '<div class="col-md-3 product-men">';
 		itemData += '<div class="men-pro-item simpleCart_shelfItem">';
 		itemData += '<div class="men-thumb-item">';
+		
+		/* Image */
 		itemData += '<img src="' + imgUrl + '" alt="" class="pro-image-front"> <img src="' + imgUrl + '" alt="" class="pro-image-back">';
+		
 		itemData += '<div class="men-cart-pro">';
 		itemData += '<div class="inner-men-cart-pro">';
 		itemData += '<a th:href="@{single.html}" class="link-product-add-cart">Quick View</a></div></div>';
@@ -15,9 +18,9 @@ function addItem(item, containerIndex) {
 		
 		/* Product Name */
 		itemData += '<h4><a th:href="@{single.html}">' + item.name.substr(0, 17) + '</a></h4>';
-		
-		/* Price */
+		/* Offer and Actual Price */
 		itemData += '<div class="info-product-price"><span class="item_price">&#8377;' + item.offerPrice + '</span><del>&#8377;' + item.price +'</del></div>';
+		
 		itemData += '<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">';
 		itemData += '<form action="#" method="post">';
 		itemData += '<fieldset>';
