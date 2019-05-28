@@ -1,5 +1,9 @@
 var loadedProduct = null;
 
+function addReviewToUi(review) {
+	$("#reviewContainer").append('<li><a href="javascript:void(0)">' + review.reviwerName + '</a><p>' + review.reviewMsg + '</p></li>');
+}
+
 function addReview() {
 	if ($('#reviewForm')[0].checkValidity()) {
 		if (localStorage.getItem("access_token") == undefined || localStorage.getItem("access_token") == '') {
@@ -22,6 +26,7 @@ function addReview() {
 				},
 				'success' : function(result) {
 					invertButton("addReviewButton", "Send", false);
+					addReviewToUi(result);
 				},
 				'error' : function(response) {
 					if (response.status == 401) {
@@ -77,6 +82,7 @@ function loadProduct() {
 			});
 		}
 		loadProductImages();
+		loadReviews();
 	});
 }
 
@@ -92,6 +98,17 @@ function loadProductImages() {
 				$("#productImages").append(img);
 			});
 			attachFlexImage();
+		}
+	});
+}
+
+function loadReviews() {
+	var productId = $("#productId").val();
+	$.get(GET_REVIEWS_BY_PRODUCT_ID + productId, function(response) {
+		if (response.length > 0) {
+			response.forEach(function(r) {
+				addReviewToUi(r);
+			});
 		}
 	});
 }

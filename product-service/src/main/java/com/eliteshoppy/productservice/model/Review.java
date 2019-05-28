@@ -16,5 +16,6 @@ public class Review {
 	
 	private String productId;
 	private String userId;
+	private String reviewerName;
 	private String reviewMsg;
 }

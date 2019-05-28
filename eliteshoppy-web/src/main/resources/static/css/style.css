@@ -3723,20 +3723,16 @@ ul.social-nav.model-3d-0.footer-social.w3_agile_social.single_page_w3ls
 	width: 14%;
 }
 
-.bootstrap-tab-text-grid-right {
-	float: right;
-	width: 83%;
-}
-
-.bootstrap-tab-text-grid-right ul li {
+.bootstrap-tab-text-grid ul li {
 	display: inline-block;
+	margin-bottom: 10px;
 }
 
-.bootstrap-tab-text-grid-right ul li:nth-child(2) {
+.bootstrap-tab-text-grid ul li:nth-child(2) {
 	float: right;
 }
 
-.bootstrap-tab-text-grid-right ul li a {
+.bootstrap-tab-text-grid ul li a {
 	font-size: 1em;
 	color: #2fdab8;
 	text-transform: uppercase;
@@ -3744,11 +3740,11 @@ ul.social-nav.model-3d-0.footer-social.w3_agile_social.single_page_w3ls
 	font-weight: 600;
 }
 
-.bootstrap-tab-text-grid-right ul li a:hover {
+.bootstrap-tab-text-grid ul li a:hover {
 	color: #212121;
 }
 
-.bootstrap-tab-text-grid-right ul li a i {
+.bootstrap-tab-text-grid ul li a i {
 	left: -1em;
 }
 
@@ -3756,8 +3752,8 @@ ul.social-nav.model-3d-0.footer-social.w3_agile_social.single_page_w3ls
 	margin: 3em 0 0 0em;
 }
 
-.bootstrap-tab-text-grid-right p {
-	margin: 2em 0 0;
+.bootstrap-tab-text-grid p {
+	margin: 1em 0 0;
 	color: #545454;
 	font-size: 0.9em;
 	line-height: 2sem;
