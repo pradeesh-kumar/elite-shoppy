@@ -1,7 +1,7 @@
 var loadedProduct = null;
 
 function addReviewToUi(review) {
-	$("#reviewContainer").append('<li><a href="javascript:void(0)">' + review.reviwerName + '</a><p>' + review.reviewMsg + '</p></li>');
+	$("#reviewContainer").append('<li style="display:block;float: none !important;"><a href="javascript:void(0)">' + review.reviewerName + '</a><p>' + review.reviewMsg + '</p></li>');
 }
 
 function addReview() {
