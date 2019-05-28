@@ -76,3 +76,7 @@ table.with-input .bootstrap-tagsinput, table.with-input input[type='text'] {
 	color: #e50b0b;
 	font-size: 25px;
 }
+.flex-control-thumbs img {
+	width: 110px;
+	height: 146px !Important;
+}

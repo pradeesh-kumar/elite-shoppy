@@ -25,6 +25,10 @@ var GET_IMAGES = API_URL + "/product-service/image/";
 var GET_ANY_IMAGE = API_URL + "/product-service/image/any/";
 var DELETE_IMAGE = API_URL + "/product-service/image/";
 
+/* Review URLS */
+var CREATE_REVIEW = API_URL + "/product-service/review";
+var GET_REVIEWS_BY_PRODUCT_ID = API_URL + "/product-service/review/";
+
 /* Search URLS */
 var NEW_ARRIVALS = API_URL + "/product-search-service/search/new-arrivals/";
 
