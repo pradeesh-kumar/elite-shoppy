@@ -1,7 +1,7 @@
 
 # Build stage
 #
-FROM maven:3.6-jdk-8 AS build
+FROM maven:3.8-jdk-8 AS build
 
 MAINTAINER pradeeshbm67@gmail.com
 
