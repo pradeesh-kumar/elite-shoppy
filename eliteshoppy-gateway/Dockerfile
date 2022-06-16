@@ -12,7 +12,7 @@ RUN mvn -f /home/app/pom.xml clean package
 #
 # Package Stage
 #
-FROM openjdk:19
+FROM openjdk:20
 COPY --from=build /home/app/target/eliteshoppy-gateway-0.0.1-SNAPSHOT.jar /usr/local/lib/app.jar
 EXPOSE 8111
 ENTRYPOINT ["java", "-jar", "/usr/local/lib/app.jar"]
